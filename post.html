@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/all.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Posts</title>
+    </head>
+    
+<body>
+    <div id="layout">
+      <div class="side-menu ">
+        <h4>TutaBlog</h4>
+        <div class="close">
+          <span class="fa fa-times close"></span>
+      </div>
+      <ul>
+        <li><a href="admin.html"> Dashboard</a></li>
+        <li><a href="post.html">Manage Post</a> </li>
+        <li><a href="blogpost.html">Blog Post</a> </li>
+        <li><a href="createPost.html">Create Post</a> </li>
+        <li><a href="users.html">All Users</a> </li>
+        <li><a href="registerUser.html">Register user</a> </li>
+    </ul>
+    </div>
+        <div id="panel" >
+    <!---------------------------------------------- navbar ------------------------------->
+           <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 w-auto">
+                    <nav class="admin-navbar">
+                        <div class="menu-search">
+                            <div class="menu-icon">
+                                <span class="fa fa-bars"></span>
+                            </div> 
+                             <form class="mx-5 d-none d-md-block">
+                                <input type="text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" class="search-input"/>
+                            </form>
+                        </div>
+
+
+                    <ul class="admin-navbar-nav">
+                    <li class="mx-4"><span title="Notification" class="fa fa-bell "></span></li>
+                    <li class="mr-4"><span title="Messages" class="fa fa-envelope "></span></li>
+                    <li class=""><img title="Oluchi" src="assets/img/interns-img/Okoro Uduma Ndukwe.jpeg" class="img-fluid admin-img"></li>
+                    <span class="admin-name d-none">Oluchi</span>
+                    </ul>   
+                </nav>
+                </div>
+
+    <!-- Main Content Starts Here -->
+                <div class="col-12 mt-5 pt-5">
+                  <h5 class="page-title my-4">Posts</h5>
+
+
+                  <div class="container-fluid">
+                    <div class="row">
+                       <div class="col-12 main-lay py-3">
+                        <h4>Posts</h4>
+
+                        <div class="table-container">
+                            <table class="table .table-hover">
+                                <thead class="bg-secondary text-light">
+                                  <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Author</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td><img src="assets/img/interns-img/Marvellous Elochukwu.jpeg" style="height: 50px;"></td>
+                                    <td><p>How Water is Good for Health</p></td>
+                                    <td><p>Brad</p></td>
+                                    <td>Health</td>
+                                    <td><div class="action">
+                                        <a href="updatePost.html" class="btn btn-primary">Update</a>
+                                        <a href="" class="btn btn-success">Publish</a>
+                                        <a href="" class="btn btn-danger">Delete</a>
+                                    </div></td>
+                                  </tr>
+                                 
+                                </tbody>
+                              </table>
+                        </div>
+                       </div>
+                      </div>
+                  </div>
+
+
+                  <footer>
+                    <div class="text-center my-5">
+                        <h6>Designed by Tutapis Interns</h6>
+                    </div>
+                  </footer>
+                  
+                </div>
+               </div>
+           </div>
+   </div>
+    </div>
+  
+
+
+
+<script src="assets/js/all.js"></script>
+<script src="assets/js/jQuery3.6.0.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>

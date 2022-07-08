@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/all.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Create</title>
+    </head>
+    
+<body>
+    <div id="layout">
+        <div class="side-menu ">
+            <h4>TutaBlog</h4>
+            <div class="close">
+                <span class="fa fa-times close"></span>
+            </div>
+            <ul>
+                <li><a href="admin.html"> Dashboard</a></li>
+                <li><a href="post.html">Manage Post</a> </li>
+                <li><a href="blogpost.html">Blog Post</a> </li>
+                <li><a href="createPost.html">Create Post</a> </li>
+                <li><a href="users.html">All Users</a> </li>
+                <li><a href="registerUser.html">Register user</a> </li>
+            </ul>
+        </div>
+        <div id="panel" >
+    <!---------------------------------------------- navbar ------------------------------->
+           <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 w-auto">
+                    <nav class="admin-navbar">
+                        <div class="menu-search">
+                            <div class="menu-icon">
+                                <span class="fa fa-bars btn-menu"></span>
+                            </div> 
+                             <form class="mx-5 d-none d-md-block">
+                                <input type="text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" class="search-input"/>
+                            </form>
+                        </div>
+
+
+                    <ul class="admin-navbar-nav">
+                    <li class="mx-4"><span title="Notification" class="fa fa-bell "></span></li>
+                    <li class="mr-4"><span title="Messages" class="fa fa-envelope "></span></li>
+                    <li class=""><img title="Oluchi" src="assets/img/interns-img/Okoro Uduma Ndukwe.jpeg" class="img-fluid admin-img"></li>
+                    <span class="admin-name d-none">Oluchi</span>
+                    </ul>   
+                </nav>
+                </div>
+
+    <!-- Main Content Starts Here -->
+                <div class="col-12 mt-5 pt-5">
+
+                  <div class="container">
+                    <div class="row">
+                       <div class="col-sm-2"></div>
+                       <div class="col-sm-8 main-lay py-3 px-5">
+                        <h4 class="my-4 mb-5">Register User</h4>
+
+                       <div class="row">
+                        <div class="col-12">
+                            <form action="">
+
+                                
+                                    <div>
+                                        <h6 class="text-secondary">Passport</h6>
+                                        <input type="file" name="image" class="form-control">
+                                    </div>
+                                    <div class="my-5">
+                                        <h6 class="text-secondary">Firstname</h6>
+                                        <input type="text" name="firstname" placeholder="Enter firstname" class="form-control">
+                                    </div>
+                                    <div class="my-5">
+                                        <h6 class="text-secondary">Lastname</h6>
+                                        <input type="text" name="lastname" placeholder="Enter lastname" class="form-control">
+                                    </div>
+
+                                    <div class="my-5">
+                                        <h6 class="text-secondary">Username</h6>
+                                        <input type="text" name="username" placeholder="Enter user" class="form-control">
+                                    </div>
+                                    <div class="my-5">
+                                        <h6 class="text-secondary">Email</h6>
+                                        <input type="text" name="email" placeholder="Enter email" class="form-control">
+                                    </div>
+
+                                    <div class="my-5">
+                                        <h6 class="text-secondary">Gender</h6>
+                                        <input type="radio" name="gender" class="" value="Male"> Male <span class="mr-4"></span>
+                                        <input type="radio" name="gender" class="" value="Female"> Female 
+                                    </div>
+
+
+
+                               
+                               
+                                    <div class="my-3">
+                                        <h6 class="text-secondary">Role</h6>
+                                        <select name="category" class="form-control">
+                                            <option value="">Choose....</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="Author">Author</option>
+                                            
+                                        </select>
+                                    </div>
+
+                                    <div class="my-5">
+                                        <h6 class="text-secondary">Password</h6>
+                                        <input type="password" name="password" placeholder="Enter password" class="form-control">
+                                    </div>
+
+                                    <div class="my-5">
+                                        <h6 class="text-secondary">Password</h6>
+                                        <input type="password" name="confirm_password" placeholder="Confrim password" class="form-control">
+                                    </div>
+                               
+
+
+                                <div class="text-center">
+                                    <input type="submit" name="submit" value="Register" class="btn btn-success mt-4">
+                                </div>
+
+                               
+                               
+                               
+                                
+                            </form>
+
+                        </div>
+                       </div>
+
+                      
+                       </div>
+                       <div class="col-sm-2"></div>
+                      </div>
+                  </div>
+
+
+                  <footer>
+                    <div class="text-center my-5">
+                        <h6>Designed by Tutapis Interns</h6>
+                    </div>
+                  </footer>
+                  
+                </div>
+               </div>
+           </div>
+   </div>
+    </div>
+  
+
+
+
+<script src="assets/js/all.js"></script>
+<script src="assets/js/jQuery3.6.0.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>

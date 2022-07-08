@@ -1,0 +1,338 @@
+@import url('../css/fonts.css');
+body{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    height: 100vh;
+    overflow-y: hidden;
+    font-family: Abel;
+   
+    
+}
+
+ul{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+
+.fixed{
+    position: fixed!important;
+}
+
+#layout{
+   display: grid;
+   grid-template-columns: auto  9fr;
+  
+}
+
+
+/************************ Main content Starts Here  *****************************/
+#panel{
+    height: 100vh;
+    overflow-y: auto;
+}
+/************************ Main content Starts Here  *****************************/
+
+
+
+
+
+/************************ Navbar Starts Here  *****************************/
+.admin-navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: right;
+    padding: 15px;
+    background: white;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+
+}
+
+nav .menu-icon{
+    cursor: pointer;
+}
+.admin-navbar li{
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+.admin-navbar-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.menu-search{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.search-input{
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: #f8f8f8;
+    border: none;
+}
+
+.search-input:focus{
+    border: none;
+    outline: none;
+}
+
+.msg{
+    position: relative;
+}
+
+.msg .unseen{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 50px;
+    text-align: center;
+    font-size: .9rem;
+    color: #fff;
+    font-weight: bold;
+    top: -10px;
+    left: 5px;
+}
+
+.li-with-card{
+    position: relative;
+}
+
+.nav-card{
+    position: absolute;  
+    z-index: 100;  
+    top: 45px;
+    right: 0;
+}
+
+
+.admin-img{
+    height: 30px;
+    border-radius: 50%;
+}
+
+/************************ Navbar Ends Here  *****************************/
+
+
+
+
+/************************ Side Bar Starts Here  *****************************/
+.side-menu{
+    width: 200px;
+    left: 0px;
+    position: relative;
+    height: 100vh;
+    overflow-y: auto;
+    padding-left: 20px;
+    padding: 10px;
+    background: #36404e;
+    transition: all .5s ease-in-out;
+    box-shadow: 0 0 25px 0 rgb(73 80 87 / 10%);
+    
+}
+
+
+.side-menu h4{
+    color: whitesmoke;
+    font-weight: 700;
+}
+
+/* width */
+.side-menu::-webkit-scrollbar
+ {
+    width: 5px;
+  }
+  
+  /* Track */
+  .side-menu::-webkit-scrollbar-track
+  {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  .side-menu::-webkit-scrollbar-thumb
+  {
+    background: #888; 
+  }
+  
+ 
+
+.side-menu h3{
+    font-weight: 700;
+    margin-bottom: 50px;
+    margin-left: 40px;
+}
+
+.side-menu ul{
+    margin: 0;
+    padding: 0;
+}
+
+.side-menu ul li{
+    /* margin-bottom: 40px; */
+    font-weight: 700;
+} 
+
+.side-menu ul li a{
+    color: #98a6ad;
+    display: block;
+    text-decoration: none;
+    padding: 20px;
+    position: relative;
+    transition: all .4s ease-in-out;
+    
+}
+
+.side-menu ul li a:hover{
+    
+    color: white;
+   
+}
+
+.side-menu .close{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: white;
+    display: none;
+}
+
+
+
+/************************ Side Bar Ends Here  *****************************/
+
+
+
+
+/************************ Main Content Starts Here  *****************************/
+
+#panel{
+    background-color: #f8f8f8;
+}
+
+.card-box{
+    background-color: #fff;
+    padding: 1.5rem;
+    margin-bottom: 24px;
+    border: 1px solid #e7eaed;
+    border-radius: 0.25rem;
+}
+
+.media{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.media .icon{
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 50%;
+    border: 1px dashed black;
+}
+
+
+
+.main-lay{
+    background-color: #fff;
+    border: 1px solid #e7eaed;
+    border-radius: 0.25rem;
+}
+
+
+
+
+
+/************************* Post Page *****************************/
+.table-container{
+    overflow: hidden;
+    overflow-x: scroll;
+}
+
+.action{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 320px) {
+    .search-input{
+        display: none;
+    }
+    .admin-name{
+        display: none;
+    }
+}
+@media screen and (min-width: 420px) {
+    .admin-name{
+        display: block!important;
+    }
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .side-menu{
+        width: 200px;
+        left: -200px;
+        position: absolute;
+        height: 100vh;
+        overflow-y: auto;
+        padding-left: 20px;
+        padding: 10px;
+        background: #36404e;
+        transition: all .5s ease-in-out;
+        box-shadow: 0 0 25px 0 rgb(73 80 87 / 10%);
+        z-index: 1;
+    }
+
+    #panel{
+       width: 100vw;
+       
+     }
+    .side-menu .close{
+        display: block;
+    }
+}
+
+
+/* Admin Login page */
+#admin-login{
+    border: 1px solid #e7eaed;
+    padding: 2em;
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+

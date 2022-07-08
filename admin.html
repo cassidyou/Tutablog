@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/all.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Home - Admin</title>
+    </head>
+    
+<body>
+    <div id="layout">
+        <div class="side-menu ">
+            <h4>TutaBlog</h4>
+            <div class="close">
+                <span class="fa fa-times close"></span>
+            </div>
+            <ul>
+                <li><a href="admin.html"> Dashboard</a></li>
+                <li><a href="post.html">Manage Post</a> </li>
+                <li><a href="blogpost.html">Blog Post</a> </li>
+                <li><a href="createPost.html">Create Post</a> </li>
+                <li><a href="users.html">All Users</a> </li>
+                <li><a href="registerUser.html">Register user</a> </li>
+            </ul>
+        </div>
+        <div id="panel" >
+    <!---------------------------------------------- navbar ------------------------------->
+           <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 w-auto">
+                    <nav class="admin-navbar">
+                        <div class="menu-search">
+                            <div class="menu-icon">
+                                <span class="fa fa-bars"></span>
+                            </div> 
+                             <form class="mx-5 d-none d-md-block">
+                                <input type="text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" class="search-input"/>
+                            </form>
+                        </div>
+
+
+                    <ul class="admin-navbar-nav">
+                    <li class="mx-4 msg">
+                        <span title="Notification" class="fa fa-bell "></span>
+                        <span class=" bg-success unseen">4</span>
+                    </li>
+                    <li class="mr-4 msg">
+                        <span title="Messages" class="fa fa-envelope "></span>
+                        <span class=" bg-danger unseen">0</span>
+                    </li>
+                    <li class="li-with-card">
+                        <img title="Oluchi" src="assets/img/interns-img/Okoro Uduma Ndukwe.jpeg" class="img-fluid admin-img">
+                        <div class="card nav-card">
+                            <div class="card-body">
+                               <div>
+                                <div><a href="">Profile</a></div>
+                                <div><a href="">Setting</a></div>
+                               </div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="login.html" class="btn btn-warning text-light">Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                    <span class="admin-name d-none">Oluchi</span>
+                    </ul>   
+                </nav>
+                </div>
+
+    <!-- Main Content Starts Here -->
+                <div class="col-12 mt-5 pt-5">
+                  <h5 class="page-title my-4">Dashboard</h5>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-sm-6">
+                        <div class="card-box">
+                            <div class="media d-flex">
+                                <div class="icon"><span class="fa fa-sticky-note fa-2x text-secondary"></span></div>
+                                <div class="content">
+                                    <h5 class="text-primary">Post</h5>
+                                    <h3>3,435</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6">
+                        <div class="card-box">
+                            <div class="media d-flex">
+                                <div class="icon"><span class="fa fa-user fa-2x text-secondary"></span></div>
+                                <div class="content">
+                                    <h5 class="text-primary">Views</h5>
+                                    <h3>3,435</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6">
+                        <div class="card-box">
+                            <div class="media">
+                                <div class="icon"><span class="fa fa-th-list fa-2x text-secondary"></span></div>
+                                <div class="content">
+                                    <h5 class="text-primary">Categories</h5>
+                                    <h3>3,435</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6">
+                        <div class="card-box">
+                            <div class="media d-flex">
+                                <div class="icon"><span class="fa fa-comment fa-2x text-secondary"></span></div>
+                                <div class="content">
+                                    <h5 class="text-primary">Comments</h5>
+                                    <h3>3,435</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                  </div>
+
+                  <div class="container-fluid">
+                    <div class="row">
+                       <div class="col-12 main-lay py-3">
+                        <h4>Top 10 Popular Posts</h4>
+
+                        <table class="table">
+                            <thead class="bg-secondary text-light">
+                              <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Category</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td><img src="assets/img/interns-img/Marvellous Elochukwu.jpeg" style="height: 100px;"></td>
+                                <td><h5>How Water is Good for Health</h5></td>
+                                <td><h6>Health</h6></td>
+                              </tr>
+                             
+                            </tbody>
+                          </table>
+                       </div>
+                      </div>
+                  </div>
+
+
+                  <footer>
+                    <div class="text-center my-5">
+                        <h6>Designed by Tutapis Interns</h6>
+                    </div>
+                  </footer>
+                  
+                </div>
+               </div>
+           </div>
+   </div>
+    </div>
+  
+
+
+
+<script src="assets/js/all.js"></script>
+<script src="assets/js/jQuery3.6.0.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>
