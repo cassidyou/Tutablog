@@ -14,7 +14,8 @@ ul{
     list-style: none;
 }
 a{
-    text-decoration: none;
+    text-decoration: none!important;
+    font-weight: 600;
 }
 
 .fixed{
@@ -114,14 +115,104 @@ nav .menu-icon{
     position: absolute;  
     z-index: 100;  
     top: 45px;
-    right: 0;
+    display: non;
+    
+}
+
+.nav-card-r{
+    right: -45px;
+    display: none;
+}
+
+.nav-card-c{
+    width: 200px;
+    right: -30px;
+    display: none;
+}
+.nav-card-l{
+    width: 200px;
+    right: -30px;
+    display: none;
+   
 }
 
 
-.admin-img{
+.admin-img, .msg-img{
     height: 30px;
     border-radius: 50%;
 }
+.admin-name{
+    cursor: pointer;
+}
+
+
+
+.nav-card .card-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-card .card-footer{
+    background-color: #fff!important;
+}
+
+.msg-img{
+    height: 40px;
+    margin-right: 10px;
+}
+
+.messages{
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    justify-content: flex-start;
+    height: 60px;
+    width: 300px;
+    
+    
+}
+
+.nav-card-c .card-body,
+.nav-card-l .card-body{
+    padding:0 10px;
+    height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+/* width */
+.nav-card-c .card-body::-webkit-scrollbar,
+.nav-card-l .card-body::-webkit-scrollbar
+ {
+    width: 5px;
+  }
+  
+  /* Track */
+  .nav-card-c .card-body::-webkit-scrollbar-track,
+  .nav-card-l .card-body::-webkit-scrollbar-track
+  {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  .nav-card-c .card-body::-webkit-scrollbar-thumb,
+  .nav-card-l .card-body::-webkit-scrollbar-thumb
+  {
+    background: rgb(194, 192, 192); 
+    border-radius: 50px;
+  }
+
+  .noticon{
+    background: green;
+    height: 30px;
+    width: 30px;
+    padding: 5px;
+    border-radius: 50px;
+    text-align: center;
+    margin-right: 10px;
+    color: #fff;
+  }
+  
 
 /************************ Navbar Ends Here  *****************************/
 

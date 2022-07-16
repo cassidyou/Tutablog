@@ -5,12 +5,20 @@ const responsive = {
     320:{
         items:1
     },
-    560:{
+    500:{
         items:2
     },
-    960:{
+    750:{
         items:3
+    },
+    1000:{
+        items:4
+    },
+    1200:{
+        items:5
     }
+
+   
 }
 $(document).ready(function(){
 
@@ -28,10 +36,13 @@ $toggleCollapse.click(function(){
 /*owl carousel for blog */
 $('.owl-carousel').owlCarousel({
     loop: true,
-    autoplay: false,
-    autoplayTimeout: 3000,
+    items: 4,
+    autoplay: true,
+    // autoplayTimeout: 3000,
     dots: false,
-    nav: true,
+    // nav: true,
+    autoplayHoverPause: true,
+    smartSpeed: 1000,
     navText: [$('.carousel-blog .prev-item'),$('.carousel-blog .next-item')],
     responsive:responsive
 });
@@ -95,7 +106,7 @@ function deletingEffect() {
 	loopDeleting();
 };
 
-typingEffect();
+// typingEffect();
 
 
 
@@ -110,7 +121,7 @@ let images =[];
 var time = 2500;
 var slider = document.getElementById('slide-img');
 
-images[0] = "url('assets/img/banner-img2.jpg')";
+images[0] = "url('assets/img/travel.jpg')";
 images[2] = "url('assets/img/slide.jpg')";
 images[3] = "url('assets/img/slide2.jpg')";
 images[4] = "url('assets/img/slide3.jpg')";
@@ -130,6 +141,34 @@ function changeImg(){
     setTimeout("changeImg()", time);
 }
 
-window.onload = changeImg;
+// window.onload = changeImg;
 
+/****************************  TutaBlog *************************/
+$('li.li-food').mouseenter(function(){
+    $('.dropdown-items-food').fadeIn();
+})
+$('li.li-food').mouseleave(function(){
+    $('.dropdown-items-food').fadeOut();
+})
+
+$('li.li-fashion').mouseenter(function(){
+    $('.dropdown-items-fashion').fadeIn();
+})
+$('li.li-fashion').mouseleave(function(){
+    $('.dropdown-items-fashion').fadeOut();
+})
+
+$('li.li-sports').mouseenter(function(){
+    $('.dropdown-items-sports').fadeIn();
+})
+$('li.li-sports').mouseleave(function(){
+    $('.dropdown-items-sports').fadeOut();
+})
+
+$('li.li-explore').mouseenter(function(){
+    $('.dropdown-items-explore').fadeIn();
+})
+$('li.li-explore').mouseleave(function(){
+    $('.dropdown-items-explore').fadeOut();
+})
 

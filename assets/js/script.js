@@ -26,20 +26,31 @@ $('.side-menu .close').click(function(){
 
 
 
+// 
+$('.admin-name').click(function(){
+   $('.nav-card-c').hide();
+   $('.nav-card-l').hide();
+   $(".nav-card-r").slideToggle();
+})
 
-//   const menuBtn = $('.menu-icon');
+$('.li-card-r').click(function(){
+   $('.nav-card-c').hide();
+   $('.nav-card-l').hide();
+   $(".nav-card-r").slideToggle();
+})
+
+$('.li-card-c').click(function(){
+   $('.nav-card-r').hide();
+   $('.nav-card-l').hide();
+   $(".nav-card-c").slideToggle();
+})
+  
  
-//   menuBtn.click(function() {
-//       if(!menuOpen){
-//           $('menu-icon').addClass('open');
-//          //  $('.side-menu').animate({left: '0px'});
-//           menuOpen = true;
-//       }else{
-//           $('.menu-icon').removeClass('open');
-//          //  $('.side-menu').animate({left: '-300px'});
-//           menuOpen = false;
-//       }
-//   })
+$('.li-card-l').click(function(){
+   $('.nav-card-r').hide();
+   $('.nav-card-c').hide();
+   $(".nav-card-l").slideToggle();
+})
   
  
 
