@@ -1,3 +1,11 @@
+<?php require_once 'blog-config.php' ?>
+<?php require_once 'includes/Bank.php' ?>
+
+<?php 
+  $users = getAllusers();
+  // print_r($users);
+
+?>
 <?php include_once 'admin/header.php' ?>
 <title>Users</title>
 <?php include_once 'admin/navbar.php' ?>
@@ -18,12 +26,20 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td><img src="assets/img/interns-img/Marvellous Elochukwu.jpeg" style="height: 100px;"></td>
-                                <td><h5>Brad Traversy</h5></td>
-                                <td><h6>Author</h6></td>
-                              </tr>
+                              <?php foreach($users as $user) : ?>
+
+                                <tr>
+                                  <th scope="row"><?php echo $user['id'] ?></th>
+                                  <td><img src="<?php echo $user['image'] ?>" style="height: 100px;"></td>
+                                  <td><h5><?php echo $user['first_name']. " ". $user['last_name'] ?></h5></td>
+                                  <td><h6><?php echo $user['role'] ?></h6></td>
+                                </tr>
+
+                              <?php endforeach ?>
+
+                              
+
+                              
                              
                             </tbody>
                           </table>
@@ -32,3 +48,5 @@
                   </div>
 
 <?php include_once 'admin/footer.php' ?>
+
+

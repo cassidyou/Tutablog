@@ -1,3 +1,14 @@
+<?php 
+include_once './blog-config.php';
+include_once './includes/Bank.php';
+
+if(!isset($_SESSION['username'])){
+   header("Location: ./user-login.php?login");
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

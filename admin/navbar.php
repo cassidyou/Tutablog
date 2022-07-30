@@ -1,4 +1,10 @@
 </head>
+
+
+
+
+
+
     
     <body>
         <div id="layout">
@@ -7,14 +13,35 @@
                 <div class="close">
                     <span class="fa fa-times close"></span>
                 </div>
-                <ul>
-                    <li><a href="admin.php"> Dashboard</a></li>
-                    <li><a href="admin-manage-post.php">Manage Post</a> </li>
-                    <li><a href="admin-blog-post.php">Blog Post</a> </li>
-                    <li><a href="admin-create-post.php">Create Post</a> </li>
-                    <li><a href="users.php">All Users</a> </li>
-                    <li><a href="admin-register-user.php">Register user</a> </li>
-                </ul>
+                <?php if(isset($_SESSION['role'])) : ?>
+                    <?php if($_SESSION['role'] == "Admin"){ ?>
+                        <ul>
+                            <li><a href="admin-dashboard.php"> Dashboard</a></li>
+                            <li><a href="admin-manage-post.php">Manage Post</a> </li>
+                            <li><a href="admin-blog-post.php">Blog Post</a> </li>
+                            <li><a href="admin-create-post.php">Create Post</a> </li>
+                            <li><a href="admin-create-category.php">Create Category</a> </li>
+                            <li><a href="users.php">All Users</a> </li>
+                            <li><a href="admin-register-user.php">Register user</a> </li>
+                        </ul>
+                    <?php }else{ ?>
+                        <ul>
+                            <li><a href="admin-dashboard.php"> Dashboard</a></li>
+                            <li><a href="admin-manage-post.php">Manage Post</a> </li>
+                            <li><a href="admin-blog-post.php">Blog Post</a> </li>
+                            <li><a href="admin-create-post.php">Create Post</a> </li>
+                            <li><a href="index.php">Visit Blog</a> </li>
+                            
+                            
+                            
+                        </ul>
+                    <?php } ?>
+    
+                <?php endif ?>
+
+
+
+               
             </div>
             <div id="panel" >
         <!---------------------------------------------- navbar ------------------------------->
@@ -52,35 +79,6 @@
                                     </div>
                                   </div>
                                   <hr>
-                                  <div class="messages">
-                                    <div class="noticon">
-                                        <span class="fa fa-bell"></span>
-                                    </div>
-                                    <div>
-                                        <span class="d-block"><b>Updates</b></span>
-                                        <span>There are 5 new update available</span>
-                                    </div>
-                                  </div>
-                                  <hr>
-                                  <div class="messages">
-                                    <div class="noticon">
-                                        <span class="fa fa-th-list"></span>
-                                    </div>
-                                    <div>
-                                        <span class="d-block"><b>New Post</b></span>
-                                        <span>You have new post...</span>
-                                    </div>
-                                  </div>
-                                  <hr>
-                                  <div class="messages">
-                                    <div class="noticon">
-                                       <span class="fa fa-user-plus"></span>
-                                    </div >
-                                    <div>
-                                        <span class="d-block"><b>New User</b></span>
-                                        <span>A new user was....</span>
-                                    </div>
-                                  </div>
                                 </div>
                                 <div class="card-footer text-center">
                                     <a href="">See all Notifications</a>
@@ -96,17 +94,7 @@
                                     <h5><b>Messages</b> </h5>
                                     <h6>Clear All</h6>
                                 </div>
-                                <div class="card-body">
-                                  <div class="messages">
-                                    <div>
-                                        <img src="assets/img/interns-img/Chinedu Daniel.jpeg" class="msg-img">
-                                    </div>
-                                    <div>
-                                        <span class="d-block"><b>Tony</b></span>
-                                        <span>Hey! I have done....</span>
-                                    </div>
-                                  </div>
-                                  <hr>
+                                <div class="card-body">                                
                                   <div class="messages">
                                     <div>
                                         <img src="assets/img/interns-img/Nwafili Vincent Chinonso.jpeg" class="msg-img">
@@ -117,25 +105,6 @@
                                     </div>
                                   </div>
                                   <hr>
-                                  <div class="messages">
-                                    <div>
-                                        <img src="assets/img/interns-img/Marvellous Elochukwu.jpeg" class="msg-img">
-                                    </div>
-                                    <div>
-                                        <span class="d-block"><b>John Doe</b></span>
-                                        <span>Your post inspired..</span>
-                                    </div>
-                                  </div>
-                                  <hr>
-                                  <div class="messages">
-                                    <div>
-                                        <img src="assets/img/interns-img/Okoro Uduma Ndukwe.jpeg" class="msg-img">
-                                    </div>
-                                    <div>
-                                        <span class="d-block"><b>Brad Traversy</b></span>
-                                        <span>Your post inspired..</span>
-                                    </div>
-                                  </div>
                                 </div>
                                 <div class="card-footer text-center">
                                     <a href="">See all Messages</a>
@@ -144,7 +113,12 @@
     
                         </li>
                         <li class="li-with-card li-card-r">
-                            <img title="Oluchi" src="assets/img/interns-img/Okoro Uduma Ndukwe.jpeg" class="img-fluid admin-img">
+                        <?php if(isset($_SESSION['image'])) : ?>
+                             <img src=<?php echo $_SESSION['image'] ?> class="img-fluid admin-img">
+
+                        <?php endif ?>
+
+                            
                             <div class="card nav-card nav-card-r">
                                 <div class="card-body">
                                    <div>
@@ -154,11 +128,14 @@
                                    </div>
                                 </div>
                                 <div class="card-footer">
-                                    <a href="login.html" class="btn btn-warning text-light"><span class="fa fa-sign-out-alt"></span> &nbsp; Logout</a>
+                                    <a href=includes/logout.php class="btn btn-warning text-light"><span class="fa fa-sign-out-alt"></span> &nbsp; Logout</a>
                                 </div>
                             </div>
                         </li>
-                        <span class="admin-name">Oluchi</span>
+                        <?php if(isset($_SESSION['username'])) : ?>
+                            <span class="admin-name"><?php echo $_SESSION['username'] ?></span>
+                        <?php endif ?>
+
                         </ul>   
                     </nav>
                     </div>

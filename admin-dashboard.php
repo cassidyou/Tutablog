@@ -1,18 +1,39 @@
 <?php include_once 'admin/header.php' ?>
+
+<?php 
+//Admin functionalities
+$posts = getAllPosts();
+$postsTotal = getPostRows();
+$categoryTotal = getCategoriesRows();
+$blogViews = getAllViews();
+
+//Authors functionalities
+$usersposts = getAllUserPosts($_SESSION['id']);
+$usersTotalPost = userTotalPosts($_SESSION['id']);
+$usersTotalViews = userTotalviews($_SESSION['id']);
+
+
+
+?>
+
+
 <title>Home - Admin</title>
 <?php include_once 'admin/navbar.php' ?>
 
 
+
                 
                   <h5 class="page-title my-4">Dashboard</h5>
+                  <?php if(isset($_SESSION['role'])) : ?>
+                    <?php if($_SESSION['role'] == "Admin"){ ?>
                   <div class="row">
                     <div class="col-xl-3 col-sm-6">
                         <div class="card-box">
                             <div class="media d-flex">
                                 <div class="icon"><span class="fa fa-sticky-note fa-2x text-secondary"></span></div>
                                 <div class="content">
-                                    <h5 class="text-primary">Post</h5>
-                                    <h3>3,435</h3>
+                                    <h5 class="text-primary">Posts</h5>
+                                    <h3><?php echo $postsTotal; ?></h3>
                                 </div>
                             </div>
                         </div>
@@ -23,7 +44,7 @@
                                 <div class="icon"><span class="fa fa-user fa-2x text-secondary"></span></div>
                                 <div class="content">
                                     <h5 class="text-primary">Views</h5>
-                                    <h3>3,435</h3>
+                                    <h3><?php echo $blogViews ?></h3>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +55,7 @@
                                 <div class="icon"><span class="fa fa-th-list fa-2x text-secondary"></span></div>
                                 <div class="content">
                                     <h5 class="text-primary">Categories</h5>
-                                    <h3>3,435</h3>
+                                    <h3><?php echo $categoryTotal ?></h3>
                                 </div>
                             </div>
                         </div>
@@ -55,29 +76,113 @@
 
                   <div class="container-fluid">
                     <div class="row">
-                       <div class="col-12 main-lay py-3">
-                        <h4>Top 10 Popular Posts</h4>
 
-                        <table class="table">
-                            <thead class="bg-secondary text-light">
-                              <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Category</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td><img src="assets/img/interns-img/Marvellous Elochukwu.jpeg" style="height: 100px;"></td>
-                                <td><h5>How Water is Good for Health</h5></td>
-                                <td><h6>Health</h6></td>
-                              </tr>
-                             
-                            </tbody>
-                          </table>
+                    
+                        <div class="col-12 main-lay py-3" style="overflow-x: scroll;">
+                            <h4>Top 10 Popular Posts</h4>
+
+                            <table class="table">
+                                <thead class="bg-secondary text-light">
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Category</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($posts as $post): ?>
+                                        <?php 
+                                            $title = $post['title'];
+                                            $id = $post['id'];
+                                            $category_name = $post['category_name'];
+                                        ?>
+                                    <tr>
+                                        <th scope="row"><?php echo $id ?></th>
+                                        <td><img src="<?php echo $post['image'] ?>" style="height: 100px;"></td>
+                                        <td><h5><?php echo $title ?></h5></td>
+                                        <td><h6><?php echo $category_name ?></h6></td>
+                                    
+                                    </tr>
+                                    <?php endforeach ?>
+                                
+                                </tbody>
+                            </table>
                        </div>
+                    <?php }else{ ?>
+                        <div class="row">
+                    <div class="col-xl-4 col-sm-6">
+                        <div class="card-box">
+                            <div class="media d-flex">
+                                <div class="icon"><span class="fa fa-sticky-note fa-2x text-secondary"></span></div>
+                                <div class="content">
+                                    <h5 class="text-primary">Posts</h5>
+                                    <h3><?php echo $usersTotalPost; ?></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-sm-6">
+                        <div class="card-box">
+                            <div class="media d-flex">
+                                <div class="icon"><span class="fa fa-user fa-2x text-secondary"></span></div>
+                                <div class="content">
+                                    <h5 class="text-primary">Views</h5>
+                                    <h3><?php echo $usersTotalViews ?></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-sm-6">
+                        <div class="card-box">
+                            <div class="media d-flex">
+                                <div class="icon"><span class="fa fa-comment fa-2x text-secondary"></span></div>
+                                <div class="content">
+                                    <h5 class="text-primary">Comments</h5>
+                                    <h3>3,435</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                  </div>
+                        <div class="col-12 main-lay py-3" style="overflow-x: scroll;">
+                            <h4>Your Posts</h4>
+
+                            <table class="table">
+                                <thead class="bg-secondary text-light">
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Category</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($usersposts as $userspost): ?>
+                                        <?php 
+                                            $title = $userspost['title'];
+                                            $id = $userspost['id'];
+                                            $category_name = $userspost['category_name'];
+                                        ?>
+                                    <tr>
+                                        <th scope="row"><?php echo $id ?></th>
+                                        <td><img src="<?php echo $userspost['image'] ?>" style="height: 100px;"></td>
+                                        <td><h5><?php echo $title ?></h5></td>
+                                        <td><h6><?php echo $category_name ?></h6></td>
+                                    
+                                    </tr>
+                                    <?php endforeach ?>
+                                
+                                </tbody>
+                            </table>
+                       </div>
+                    <?php } ?>
+    
+                <?php endif ?>
+                       
+
+
                       </div>
                   </div>
 

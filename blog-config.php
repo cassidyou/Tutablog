@@ -1,8 +1,8 @@
 <?php 
 session_start();
 
-require_once('./includes/Bank.php');
-$conn = db_connect("localhost","tutablogdb","root","");
+require_once('includes/Bank.php');
+$conn = db_connect("localhost","blogproject","root","");
 
 
 define('ROOT_PATH', realpath(dirname(__FILE__)));

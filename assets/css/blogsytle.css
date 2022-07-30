@@ -215,6 +215,22 @@ nav .social-icons .social-icon:hover{
     z-index: inherit;
 }
 
+#title-hint{
+   display: block;
+   position: absolute;
+   z-index: 999999999;
+   background: #f8f9fa;
+   padding: 10px;
+   right: 20px;
+   top: 110px;
+   border: 1px solid #a0c4ebc7;
+   border-radius: 5px;
+}
+#titleHint .title{
+    font-size: 1rem;
+    margin-bottom: 50px;
+}
+
 
 /**********************************showcase section ******************************************/
 
@@ -310,7 +326,6 @@ nav .social-icons .social-icon:hover{
 /*********************************************** Carousel Section *************************************/
 .carousel-container{
     background: #a0c4ebc7;
-    /* background:#d88df7!important; */
     position: relative;
     display: flex;
     justify-content: center;
@@ -321,26 +336,32 @@ nav .social-icons .social-icon:hover{
 
 .carousel-content{
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     margin-top: .5rem;
 }
 
 .carousel-img-container{
     overflow: hidden;
+    border-radius: 10px;
+   
     
 }
-.carousel-img{
-    height: 4rem;
+.img-carousel{
+    height: 3rem;
+    width: 70px!important;
+    height: 50px;
+   
+   
     transition: all 1s ease-in-out;
    
 }
 
-.carousel-img:hover{
+.img-carousel:hover{
     transform: scale(1.4);
 }
 .carousel-title{
-    padding: 1rem;
+    padding: 0 1rem;
 }
 .carousel-title .title a{
     font-weight: bold;
@@ -383,6 +404,7 @@ nav .social-icons .social-icon:hover{
     border: 1px solid rgb(236, 234, 234);
     border-radius: 1px;
     transition: all 0.5s ease-in-out;
+    
 }
 
 
@@ -436,6 +458,10 @@ nav .social-icons .social-icon:hover{
     padding: 0 1rem 0 1rem;
     opacity: 0.7;
 }
+.post-text {
+    overflow-wrap: break-word;
+}
+
 
 .post-content .readmore{
   padding:  1rem;
@@ -481,6 +507,7 @@ nav .social-icons .social-icon:hover{
     border-radius: 10rem;
     box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1);
 } */
+
 
 
 /****************************************************** Sidebar ************************************************/
@@ -923,6 +950,11 @@ footer .copyright span{
     .category-items .category-item{
         width: 80%!important;
         
+    }
+
+    .col-lg-9{
+        padding-right: 7px!important;
+        padding-left: 7px!important;
     }
 
 

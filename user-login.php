@@ -1,3 +1,10 @@
+<?php 
+
+include_once 'includes/Bank.php';
+include_once 'includes/login.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,15 +23,41 @@
     
     <div class="row text-center my-5">
         <div class="col-12 col-md-3 col-lg-4"></div>
-        <div class="col-12 col-md-6 col-lg-4">
+        <div class="col-12 col-md-6 col-lg-4" id="admin-login">
+
+        <h3 class="text-center mt-2 mb-4">User Login</h3>
+                <?php if(isset($_GET['notfound'])){
+                            $errMsg = $_GET['notfound'];
+                            $errMsg = "Incorrect username or email";
+                            echo "<div class='alert alert-danger'> $errMsg </div>";
+                        }
+                     if(isset($_GET['wrongp'])){
+                            $errMsg = $_GET['wrongp'];
+                            $errMsg = "Incorrect password";
+                            echo "<div class='alert alert-danger '> $errMsg </div>";
+                        }
+                     if(isset($_GET['login'])){
+                            $errMsg = $_GET['login'];
+                            $errMsg = "Access Denied: You must be logged in to visit that page";
+                            echo "<div class='alert alert-danger '> $errMsg </div>";
+                        }
+                        ?>
+                <?php if (!empty($errors)): ?>
+                            <div class="alert alert-danger">
+                            <?php foreach($errors as $error): ?>
+                                <div><?php echo $error ?></div>
+                            <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+               
             
-            <form action="" class="text-left" id="admin-login">
-                <h3 class="text-center mt-2 mb-4">User Login</h3>
+            <form action="" method="post" class="text-left" id="admin-logi">
+             
                 <label for="username"><b>Username</b> </label>
                 <input type="text" name="username" placeholder="Enter username or email" class="form-control">
                 <br>
                 <label for="username"><b>Password</b></label>
-                <input type="text" name="username" placeholder="Enter password" class="form-control">
+                <input type="password" name="password" placeholder="Enter password" class="form-control">
                 <br>
 
                 <div class="text-center">
@@ -40,4 +73,3 @@
  </div>
   
 
- <?php include_once 'includes/footer.php' ?>

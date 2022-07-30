@@ -1,3 +1,8 @@
+<?php
+$foodPosts = getPostsByLimit('food', 4); 
+
+
+?>
 <div class="toppest">
    <div>Lorem, ipsum.</div>
    <div class="social-connect">
@@ -24,51 +29,23 @@
         <div class="dropdown-items-food">
           <div class="containerfluid">
             <div class="row">
-              <div class="col-lg-3 drop-item">
-                <div class="img-container">
-                  <a href=""><img src="assets/img/ekuru+3.webp" class="img-fluid dropdown-img"></a>
+              <?php foreach($foodPosts as $post) : ?>
+                <div class="col-lg-3 drop-item">
+                  <div class="img-container">
+                    <a href=single-post.php?slug=<?php echo $post['slug'] ?>&id=<?php echo $post['category_id'] ?>>
+                    <img src="<?php echo $post['image']  ?>" class="img-fluid dropdown-img">
+                  </a>
+                  </div>
+                  <div>
+                    <h5 class="dropdown-title">
+                    <a href=single-post.php?slug=<?php echo $post['slug'] ?>&id=<?php echo $post['category_id'] ?>>
+                      <?php echo $post['title'] ?>
+                  </a>
+                    </h5>
+                    <span class="text-secondary">By <?php echo $post['author_firstname'] ?></span>
+                  </div>
                 </div>
-                <div>
-                  <h5 class="dropdown-title">
-                    <a href="">The most popular fast food chains</a> 
-                  </h5>
-                  <span class="text-secondary">By Brad Traversy</span>
-                </div>
-              </div>
-              <div class="col-lg-3 drop-item">
-                <div class="img-container">
-                  <a href=""><img src="assets/img/Potato-pancakes-crepes.webp" class="img-fluid dropdown-img"></a>
-                </div>
-                <div>
-                  <h5 class="dropdown-title">
-                    <a href="">American sweet pancakes with honey</a> 
-                  </h5>
-                  <span class="text-secondary">By John Doe</span>
-                </div>
-              </div>
-              <div class="col-lg-3 drop-item">
-                <div class="img-container">
-                  <a href=""><img src="assets/img/youfurt.webp" class="img-fluid dropdown-img"></a>
-                </div>
-                <div>
-                  <h5 class="dropdown-title">
-                    <a href="">How to make lemon and orange juice</a> 
-                  </h5>
-                  <span class="text-secondary">By Brad Traversy</span>
-                </div>
-              </div>
-              <div class="col-lg-3 drop-item">
-                <div class="img-container">
-                  <a href=""><img src="assets/img/Nigerian+Catfish+Peppersoup.webp" class="img-fluid dropdown-img"></a>
-                </div>
-                <div>
-                  <h5 class="dropdown-title">
-                    <a href="">Fish food, recipes you can make today</a> 
-                  </h5>
-                  <span class="text-secondary">By Brad Traversy</span>
-                </div>
-              </div>
-              
+              <?php endforeach ?>
             </div>
           </div>
         </div>
@@ -81,70 +58,31 @@
          <div class="dropdown-items-fashion">
           <div class="containerfluid">
             <div class="row">
-              <div class="col-lg-3 drop-item">
-                <div class="img-container">
-                  <a href=""><img src="assets/img/interns-img/Okoro Uduma Ndukwe - Copy.jpeg" class="img-fluid dropdown-img"></a>
+              <?php $fashionPosts = getPostsByLimit('fashion', 4);   ?>
+            <?php foreach($fashionPosts as $postf) : ?>
+                <div class="col-lg-3 drop-item">
+                  <div class="img-container">
+                    <a href=single-post.php?slug=<?php echo $postf['slug'] ?>&id=<?php echo $postf['category_id'] ?>>
+                    <img src="<?php echo $postf['image']  ?>" class="img-fluid dropdown-img">
+                  </a>
+                  </div>
+                  <div>
+                    <h5 class="dropdown-title">
+                    <a href=single-post.php?slug=<?php echo $postf['slug'] ?>&id=<?php echo $postf['category_id'] ?>>
+                      <?php echo $postf['title'] ?>
+                  </a>
+                    </h5>
+                    <span class="text-secondary">By <?php echo $postf['author_firstname'] ?></span>
+                  </div>
                 </div>
-                <div>
-                  <h5 class="dropdown-title">
-                    <a href="">Style tips every woman should know</a> 
-                  </h5>
-                  <span class="text-secondary">By Brad Traversy</span>
-                </div>
-              </div>
-              <div class="col-lg-3 drop-item">
-                <div class="img-container">
-                  <a href=""><img src="assets/img/interns-img/Chinedu Daniel.jpeg" class="img-fluid dropdown-img"></a>
-                </div>
-                <div>
-                  <h5 class="dropdown-title">
-                    <a href="">Best African outfit for men</a> 
-                  </h5>
-                  <span class="text-secondary">By John Doe</span>
-                </div>
-              </div>
-              <div class="col-lg-3 drop-item">
-                <div class="img-container">
-                  <a href=""><img src="assets/img/interns-img/Nwafili Vincent Chinonso.jpeg" class="img-fluid dropdown-img"></a>
-                </div>
-                <div>
-                  <h5 class="dropdown-title">
-                    <a href="">The trends of women clothing</a> 
-                  </h5>
-                  <span class="text-secondary">By Brad Traversy</span>
-                </div>
-              </div>
-              <div class="col-lg-3 drop-item">
-                <div class="img-container">
-                  <a href=""><img src="assets/img/interns-img/Anthony.jpeg" class="img-fluid dropdown-img"></a>
-                </div>
-                <div>
-                  <h5 class="dropdown-title">
-                    <a href="">Summer men fashion trends</a> 
-                  </h5>
-                  <span class="text-secondary">By Brad Traversy</span>
-                </div>
-              </div>
+              <?php endforeach ?>
+
               
             </div>
           </div>
         </div>
        </li>
-       <li class="nav-item">
-        <span class="nav-link"><a href="tech.html" class="text-dark">Tech</a></span>
-       </li>
-       <li class="nav-item li-sports">
-        <span class="nav-link">Sports <span class="fa fa-chevron-down chevron-down"></span></span>
-
-        <div class="dropdown-items-sports">
-          <ul class="sports">
-            <li><a href="">Football</a></li>
-            <li><a href="">Basketball</a></li>
-            <li><a href="">Tennis</a></li>
-            <li><a href="">Baseball</a></li>
-          </ul>
-        </div>
-       </li>
+       
        <li class="nav-item li-explore">
         <span class="nav-link">Explore <span class="fa fa-chevron-down chevron-down"></span></span>
          <!-------------------------- Dropdown menu ------------------------------------------>
@@ -201,7 +139,8 @@
        </li>
       </ul>
       <form method="post" class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" name="keyword" placeholder="Search this blog">
+        <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search for post" onkeyup="showTitle(this.value)">
+        
       </form>
       <div class="blog-date d-none d-lg-flex"> 
         <div class="day ml-5 mr-2"> <h2>9</h2></div>
@@ -212,3 +151,55 @@
       </div>
     </div>
   </nav>
+  
+  <style>
+    #titleHint,
+    #postHint{
+      display: absolute;
+    }
+  </style>
+
+
+  <script>
+    function showTitle(str){
+      if(str == ""){
+        document.getElementById("titleHint").innerHTML = "";
+        return;
+      }else{
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "./includes/search-post.php?q=" + str, true);
+
+        xmlhttp.onload = function(){
+          if(this.readyState == 4 && this.status == 200){
+            document.getElementById("titleHint").innerHTML = this.responseText;
+          }else{
+            alert("Error: " + xmlhttp.status);
+            alert("Error: " + xmlhttp.statusText);
+          }
+        };
+        xmlhttp.send();
+      }
+    }
+
+    function showPostByTitle(str){
+      if(str == ""){
+        document.getElementById("postHint").innerHTML = '';
+        return;
+      }else{
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "./includes/search-post.php?q=" + str, true);
+
+        xmlhttp.onload = function(){
+          if(this.readyState == 4 && this.status == 200){
+            document.getElementById("postHint").innerHTML = this.responseText;
+          }else{
+            alert("Error: " + xmlhttp.status);
+            alert("Error: " + xmlhttp.statusText);
+          }
+        };
+        xmlhttp.send();
+      }
+    }
+    
+  </script>
+

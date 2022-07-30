@@ -1,8 +1,8 @@
 
 
-                  <footer>
-                    <div class="text-center my-5">
-                        <h6>Designed by Tutapis Interns</h6>
+                  <footer class="mt-5">
+                    <div class="text-center mt-5">
+                        <h6>Designed by Tutapis Technology Interns</h6>
                     </div>
                   </footer>
                   
