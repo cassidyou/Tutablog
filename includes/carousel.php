@@ -7,7 +7,8 @@
           <div class="carousel-content">
             <div class="carousel-img-container" >
             <a href=single-post.php?slug=<?php echo $post['slug'] ?>&id=<?php echo $post['category_id'] ?>>
-              <img src="<?php echo $post['image']  ?>" class="img-carousel img-fluid" >
+            <?php echo "<img src=uploads/".$post['image']." class='img-fluid img-carousel'>" ?>
+              
             </a>
             </div>
             <div class="carousel-title">

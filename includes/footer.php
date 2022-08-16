@@ -1,7 +1,7 @@
 
 
-<footer class="bg-dark pt-5 pb-0">
-  <div class="container-fluid">
+<footer class=" pt-5 pb-0">
+  <!-- <div class="container-fluid">
     <div class="row">
       <div class="col-sm-1"></div>
       <div class="col-sm-10">
@@ -64,7 +64,7 @@
       </div>
       <div class="col-sm-1"></div>
     </div>
-  </div>
+  </div> -->
 
   <!--footer 2-->
   <div class="container-fluid">

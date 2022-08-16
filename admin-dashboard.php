@@ -6,19 +6,27 @@ $posts = getAllPosts();
 $postsTotal = getPostRows();
 $categoryTotal = getCategoriesRows();
 $blogViews = getAllViews();
+$blogcomments = getAllComments();
+$topPosts = popularPosts(10);
+
+$IP = getIPAddress();
+
+
+
+
+
+
 
 //Authors functionalities
 $usersposts = getAllUserPosts($_SESSION['id']);
 $usersTotalPost = userTotalPosts($_SESSION['id']);
 $usersTotalViews = userTotalviews($_SESSION['id']);
-
-
-
+$usersTotalComments = usersTotalComment($_SESSION['id']);
 ?>
 
 
 <title>Home - Admin</title>
-<?php include_once 'admin/navbar.php' ?>
+<?php include_once 'admin/navbar.php';  ?>
 
 
 
@@ -66,7 +74,7 @@ $usersTotalViews = userTotalviews($_SESSION['id']);
                                 <div class="icon"><span class="fa fa-comment fa-2x text-secondary"></span></div>
                                 <div class="content">
                                     <h5 class="text-primary">Comments</h5>
-                                    <h3>3,435</h3>
+                                    <h3><?php echo $blogcomments ?></h3>
                                 </div>
                             </div>
                         </div>
@@ -91,15 +99,15 @@ $usersTotalViews = userTotalviews($_SESSION['id']);
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($posts as $post): ?>
+                                    <?php foreach($topPosts as $topPost): ?>
                                         <?php 
-                                            $title = $post['title'];
-                                            $id = $post['id'];
-                                            $category_name = $post['category_name'];
+                                            $title = $topPost['title'];
+                                            $id = $topPost['id'];
+                                            $category_name = $topPost['category_name'];
                                         ?>
                                     <tr>
                                         <th scope="row"><?php echo $id ?></th>
-                                        <td><img src="<?php echo $post['image'] ?>" style="height: 100px;"></td>
+                                        <td><?php echo "<img src=uploads/".$topPost['image']." style='height: 100px'>" ?></td>
                                         <td><h5><?php echo $title ?></h5></td>
                                         <td><h6><?php echo $category_name ?></h6></td>
                                     
@@ -139,7 +147,7 @@ $usersTotalViews = userTotalviews($_SESSION['id']);
                                 <div class="icon"><span class="fa fa-comment fa-2x text-secondary"></span></div>
                                 <div class="content">
                                     <h5 class="text-primary">Comments</h5>
-                                    <h3>3,435</h3>
+                                    <h3><?php echo $usersTotalComments ?></h3>
                                 </div>
                             </div>
                         </div>
@@ -167,7 +175,7 @@ $usersTotalViews = userTotalviews($_SESSION['id']);
                                         ?>
                                     <tr>
                                         <th scope="row"><?php echo $id ?></th>
-                                        <td><img src="<?php echo $userspost['image'] ?>" style="height: 100px;"></td>
+                                        <td><?php echo "<img src=uploads/".$userspost['image']." style='height: 100px;'>" ?></td>
                                         <td><h5><?php echo $title ?></h5></td>
                                         <td><h6><?php echo $category_name ?></h6></td>
                                     
@@ -188,3 +196,10 @@ $usersTotalViews = userTotalviews($_SESSION['id']);
 
 
 <?php include_once 'admin/footer.php' ?>
+<script>
+    var a = geoplugin_countryCode();
+    
+
+    var country = geoplugin_countryName();
+    // alert(country);
+</script>

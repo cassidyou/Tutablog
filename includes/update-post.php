@@ -1,4 +1,5 @@
 <?php 
+require_once 'blog-config.php';
 require_once 'includes/Bank.php';
 
 
@@ -21,7 +22,7 @@ if(isset($_POST['submit'])){
 
   //Form validation
     $image = $_FILES['image'];
-    $imagePath = '';
+ 
     if ($image && $image['tmp_name']){
 
 
@@ -47,8 +48,7 @@ if(isset($_POST['submit'])){
         
       }
       if(empty($errors)){
-        $imagePath = 'uploads/'.randomName(8).'/'.$image['name'];
-        mkdir(dirname($imagePath));
+        $imagePath = 'uploads/post'.randomName(8).$image['name'];
         move_uploaded_file($image['tmp_name'], $imagePath);
       }
 
@@ -66,28 +66,34 @@ if(isset($_POST['submit'])){
     $errors[] = 'Please enter post content';
     }
 
-//   if(!$category_id){
-//     $errors[] = 'Please select post category';
-//     }
 
-//   if(!$author){
-//     $errors[] = 'Please select post author';
-//     }
 
 
    if(empty($errors)){
-     
+        $stmt = $conn->prepare("UPDATE posts SET title = ?, slug = ?, image = ?, body = ?, updated_at = ? WHERE id = ?");
+        $stmt->execute([$title, $slug, basename($imagePath), $post_body, $date, $post_id]);
 
-
-        $stmt = $conn->prepare("UPDATE posts 
-                                SET title = ?,
-                                    slug = ?, 
-                                    image = ?, 
-                                    body = ?, 
-                                    updated_at = ?
-                                WHERE id = ?");
-
-        $stmt->execute([$title, $slug, $imagePath, $post_body, $date, $post_id]);
+        $posts = getSinglePost($_GET['slug']);
+        $source_id = $_SESSION['id'];
+        $post_title = $posts['0']['title'];
+        $title = "Updated a post";
+        $message = "Updated a post titled <b><i>".strtoupper($post_title)."</i></b>";
+        
+        
+        //Fetching the data of All the Admins
+        $sql = $conn->prepare("SELECT id FROM users WHERE role = ?");
+        $sql->execute(["Admin"]);
+        $results = $sql->fetchAll(PDO::FETCH_ASSOC);
+        
+        
+        foreach($results as $admin_id){
+          $stmt = $conn->prepare("INSERT INTO notification (destination_id, source_id, post_id, title, message) 
+                                VALUES (?, ?, ?, ?, ?)");
+          $stmt->execute([$admin_id['id'], $source_id, $post_id, $title, $message ]);  
+        }
+        
+       
+    
 
 
     //  redirect to create page

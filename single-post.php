@@ -1,5 +1,6 @@
 <?php require_once './blog-config.php';
 require_once 'includes/Bank.php';
+require_once 'vendor/autoload.php';
 
 
 
@@ -27,7 +28,7 @@ print_r($result);
 </head>
 <body>
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v14.0" nonce="rSo1xXDY"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v14.0&appId=838326420482072&autoLogAppEvents=1" nonce="iCsT8GEW"></script>
     <style>
         .post-content:hover,
         .post-img img:hover
@@ -47,6 +48,7 @@ print_r($result);
               overflow-wrap: break-word;
           }
         }
+     
 
 
         .paragraph{
@@ -66,11 +68,56 @@ print_r($result);
           align-items: flex-start;
           justify-content: flex-start;
           flex-direction: row;
-          background: white;
+          background: whit;
           border-radius: 10px;
           padding: 20px;
           margin: 10px 0;
         }
+
+        .btn-like{
+          cursor: pointer;
+          font-size: medium;
+          color: blue;
+        }
+        #reply{
+          cursor: pointer;
+          font-weight: 700;
+          
+        }
+
+        #reply-form{
+          display: none;
+        }
+        #num-reply{
+          cursor: pointer;
+        }
+        #comment-reply{
+          display: none;
+        }
+        #comment_id{
+          background-color: transparent;
+          border: none;
+        }
+
+        .watermark{
+        position: absolute;
+        z-index: 9999;
+        height: 50px;
+        width: 150px;
+        top: 80px;
+        right: 0;
+        }
+
+        .watermark img{
+        height: 150px;
+        }
+        @media screen and(max-width: 500px){
+            .watermark{
+              position: absolute!important;
+              top: 70px!important;
+          }
+        }
+
         
 
     </style>
@@ -101,6 +148,7 @@ print_r($result);
                 $image = $post['image'];
                 $slug = $post['slug'];
                 $image = $post['image'];
+                $watermark = $post['watermark'];
 
             ?>
 
@@ -108,8 +156,16 @@ print_r($result);
             <div class="row">
               <div class="col-12">
                     <div class="post-content">
+                      <?php 
+                        if(isset($watermark)){
+                            echo "<span class='watermark'><img src=uploads/".$watermark."></span>";
+                          }
+                      ?>
                       <div class="post-img">
-                        <img src="<?php echo $image ?>" class="h-50 img-fluid">
+                        
+                        <?php echo "  <img src=uploads/".$image." class='h-50 img-fluid'>"  ?>
+                    
+                       
                       </div>
                       <div class="post-text">
                           <div class="post-date">
@@ -119,24 +175,26 @@ print_r($result);
                           <h2 class="text-dark text-left"><b><?php echo $title?></b> </h2>
                           </div>
                       
-                          <div class="paragraph"><?php  echo $content ?></div>
+                          <div class="paragraph"><?php  echo nl2br($content) ?></div>
                       </div>
                     </div>
               </div>
             </div>
         <br><br>
         <h3 class="heading sidebar-heading mt-5 pt-3">Share this post</h3>
-              <ul class="share-social-icons d-flex">
+              <!-- <ul class="share-social-icons d-flex">
                 <li><a href=""><span class="fab fa-facebook mx-3"></span></a></li>
                 <li><a href=""><span class="fab fa-whatsapp  mx-2"></span></a></li>
                 <li><a href=""><span class="fab fa-instagram  mx-2"></span></a></li>
                 <li><a href=""><span class="fab fa-twitter  mx-2"></span></a></li>
                 <li><a href=""><span class="fab fa-linkedin  mx-2"></span></a></li>
-              </ul>
+                
+              </ul> -->
+              <?php $url =  "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; ?>
 
-              <!-- <?php $url =  "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; ?>
-
-              <div class="fb-share-button" data-href="<?php echo $url ?>" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $url ?>" class="fb-xfbml-parse-ignore">Share</a></div> -->
+              <div class="fb-share-button" data-href="<?php echo $url ?>" data-layout="button_count" data-size="small">
+                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $url?>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share on facebook</a>
+             </div>
               <br><br>
 
 
@@ -148,6 +206,7 @@ print_r($result);
 
                  <textarea class="form-control" id="main_comment" placeholder="Enter comment"  rows="7"></textarea>
                  <div id="post_id" style="color:#f7f8f9 ;"><?php echo $post['id'] ?></div>
+                 <div id="user_ip" style="color:#f7f8f9 ;"><?php echo $userIP ?></div>
                  <button class="btn btn-primary" style="float: right;" id="add_comment">Add comment</button>
 
 
@@ -155,9 +214,10 @@ print_r($result);
               
                 </div>
               </div>
-              <div class="container-fluid">
+              <div>
                 <div class="row my-5">
-                <div><b id="totalComment"></b></div> 
+                <div title="comments"><span class="fa fa-comments ml-5"></span> <b id="totalComment"></b></div> 
+                <div id="like" title="Likes"><span class="fa fa-thumbs-up ml-5 btn-like"></span> <b id="likes"></b></div> 
                 
                 </div>
                 <div class="row mb-5">
@@ -168,17 +228,18 @@ print_r($result);
                 </div>
               </div>
 
-             
+           
                
 
       </div>
-    <?php endforeach?>
+      <?php endforeach?>
    
      
 
           <!------------------------------------------------ Side Bar ------------------------------------------------------------>
         <?php include_once 'includes/sidebar.php' ?>
     </div>
+  
   </div>
 </main>
 
@@ -188,11 +249,14 @@ print_r($result);
 
 <?php require_once 'includes/footer.php' ?>
 
+
+
 <script>
   
   $(document).ready(function(){
     commentCount();
     getComments();
+    getlikes();
 
 
   
@@ -207,7 +271,9 @@ print_r($result);
             post_id: post_id
           },
           success: function(response){
-              $("#totalComment").text(`${response} Comments`);
+              
+            
+              $("#totalComment").text(response);
           }
         });
     }
@@ -223,7 +289,24 @@ print_r($result);
             post_id: post_id
           },
           success: function(response){
-              $(".user-comments").append(response);
+              $(".user-comments").html(response);
+          }
+        });
+    }
+
+    function getlikes(){
+      var post_id = $("#post_id").text();
+      $.ajax({
+          url: 'includes/comments.php',
+          method: 'POST',
+          dataType: 'text',
+          data: {
+            getlikes: 1, 
+            post_id: post_id,
+          },
+          success: function(response){
+              $("#likes").text(response); 
+              
           }
         });
     }
@@ -267,6 +350,139 @@ print_r($result);
         
 
     });
+
+    $("#like").on('click', function(){
+      var post_id = $("#post_id").text();
+      var user_ip = $("#user_ip").text();
+
+      $.ajax({
+          url: 'includes/comments.php',
+          method: 'POST',
+          dataType: 'text',
+          data: {
+            likes: 1, 
+            post_id: post_id,
+            user_ip: user_ip,
+          },
+          success: function(response){
+              $("#likes").text(response);
+              
+            
+              
+          }
+        });
+    })
+
+    setInterval(() => {
+      var post_id = $("#post_id").text();
+      $.ajax({
+          url: 'includes/comments.php',
+          method: 'POST',
+          dataType: 'text',
+          data: {
+            getTotalcomments: 1, 
+            post_id: post_id
+          },
+          success: function(response){
+              
+            
+              $("#totalComment").text(response);
+          }
+        });
+        console.log('running')
+    }, 5000);
+
+    setInterval(() => {
+      var post_id = $("#post_id").text();
+      $.ajax({
+          url: 'includes/comments.php',
+          method: 'POST',
+          dataType: 'text',
+          data: {
+            getlikes: 1, 
+            post_id: post_id,
+          },
+          success: function(response){
+              $("#likes").text(response); 
+              
+          }
+        });
+    }, 5000);
+
+
+    $(document).on('click', "#reply", function(){
+      $(this).siblings('form').slideToggle();
+      
+    })
+
+    function getRepliesCount(comment_id){
+     
+    }
+
+
+    $(document).on('click', "#num-reply", function(){
+      $(this).parent().parent().siblings('#comment-reply').slideToggle();
+    })
+
+    $(document).on('click', "#reply-btn", function(event){
+      event.preventDefault();
+      var user = $(this).siblings("#reply-username").val();
+      var content = $(this).siblings("#reply-content").val();
+      var comment_reply = $(this).parent().parent().parent().parent().siblings("#comment-reply");
+      var comment_id = $(this).siblings("#comment_id").val();
+      var reply_count = $(this).parent().parent().siblings("#num-reply");
+    
+
+      if(content.length > 5 && user.length > 3){
+          $.ajax({
+                  url: 'includes/comments.php',
+                  method: 'POST',
+                  dataType: 'text',
+                  data: {
+                    reply: 1, 
+                    username: user,
+                    reply: content,
+                    comment_id: comment_id
+                  },
+                  success: function(response){
+                    comment_reply.prepend(response); 
+                    
+                    
+                    // getReplies(comment_id);
+                      $.ajax({
+                        url: 'includes/comments.php',
+                        method: 'POST',
+                        dataType: 'text',
+                        data: {
+                          get_reply_count: 1, 
+                          comment_id: comment_id
+                        },
+                        success: function(response){
+                          reply_count.html(response);
+                        }
+                      });
+                  }
+                });
+
+              
+
+              
+
+              var user = $(this).siblings("#reply-username").val("");
+              var content = $(this).siblings("#reply-content").val("");
+      }else{
+        alert("Please fill all fields")
+      }
+    
+
+      
+    })
+
+
+    
+
+
+   
     
     
 

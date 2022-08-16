@@ -3,6 +3,7 @@
 require_once 'includes/PHPMailer.php'; 
 require_once 'includes/SMTP.php'; 
 require_once 'includes/Exception.php';
+require_once 'vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -28,14 +29,13 @@ if(isset($_POST['submit'])){
 
 
    //Form validation
-    if ($_FILES['image']['size'] === 0){
+   $image = $_FILES['image'];
+    if ($image['size'] === 0){
         $errors[] = 'No image selected, please chose post image.';
-    }else{
-        $image = $_FILES['image'] ?? null;
+    }elseif ($image && $image['tmp_name']){
+       
 
         $imagePath = '';
-    if ($image && $image['tmp_name']){
-
 
       $imageFileType = strtolower(pathinfo($_FILES["image"]["name"],PATHINFO_EXTENSION));
       
@@ -59,19 +59,19 @@ if(isset($_POST['submit'])){
         
       }
 
-    }
-  };
+    
+  
 
-//   Check if input fields are empty
-   if(!$first_name){
+    //   Check if input fields are empty
+    if(!$first_name){
         $errors[] = 'Please enter users firstname';
     }
 
-  if(!$last_name){
+    if(!$last_name){
         $errors[] = 'Please enter users lastname';
     }
 
-  if(!$user_name){
+    if(!$user_name){
         $errors[] = 'Please enter users username';
     }
     if(!preg_match("/^[a-zA-Z0-9]*$/", $user_name)){
@@ -82,15 +82,15 @@ if(isset($_POST['submit'])){
         $errors[] = "Invalid email address";
     }
 
-  if(!$gender){
+    if(!$gender){
         $errors[] = 'Please select users gender';
     }
 
-  if(!$role){
+    if(!$role){
         $errors[] = 'Please select users role';
     }
 
-  if(!$password){
+    if(!$password){
         $errors[] = 'Please enter users password';
     }
 
@@ -101,7 +101,7 @@ if(isset($_POST['submit'])){
         $errors[] = "Password mismatch";
     }
 
-  if(!$password_repeat){
+    if(!$password_repeat){
         $errors[] = 'Password does not match';
     }
 
@@ -114,30 +114,21 @@ if(isset($_POST['submit'])){
       $stmt->execute([$user_name, $email]);
 
       // if user exists
-    if($stmt->rowCount() == 1){
+      if($stmt->rowCount() == 1){
         $errors[] = "username or email already exists";
       }
 
       if($stmt->rowCount() == 0 && empty($errors) == true){
-          $imagePath = 'uploads/'.randomName(8).'/'.$image['name'];
-          mkdir(dirname($imagePath));
+          $imagePath = 'uploads/user'.randomName(8).$image['name'];
+          
             move_uploaded_file($image['tmp_name'], $imagePath);
 
           //Hashing the password
           $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
 
-          $stmt = $conn->prepare("INSERT INTO users (
-                                                  first_name,
-                                                  last_name,
-                                                  username,
-                                                  email,
-                                                  role,
-                                                  password,
-                                                  image,
-                                                  created_at
-                                                      ) 
-                                              VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
-                                  );
+          $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, username,      email,
+                                role, password, image, created_at) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
           $stmt->execute([
               $first_name,
               $last_name,
@@ -145,23 +136,25 @@ if(isset($_POST['submit'])){
               $email,
               $role,
               $hashedPwd,
-              $imagePath,
+              basename($imagePath),
               $date
           ]);
 
           // Forward user login details to the registered email
-          $mail = new PHPMailer();
-          $mail->isSMTP();
-          $mail->Host = "smtp-relay.sendinblue.com";
-          $mail->SMTPAuth = "true";
-          $mail->SMTPSecure = "tls";
-          $mail->Port = "587";
-          $mail->Username = "oluchi.web@gmail.com";
-          $mail->Password = "QXG1rF58LZqjs7pB";
+          $mail = new PHPMailer(true);
+            //  $mail->SMTPDebug = 2; 
+             $mail->isSMTP();
+             $mail->Host = "smtp-relay.sendinblue.com";
+             $mail->SMTPAuth = "true";
+             $mail->SMTPSecure = "tls";
+             $mail->Port = "587";
+             $mail->Username = "oluchi.web@gmail.com";
+             $mail->Password = "xsmtpsib-4b851c7c225da14d3f6a257eade2adbc8deb42d61bab6091ee98f70e86f5d1a7-26NPVbLKwQsZq0Rk";
+     
 
           $mail->isHTML(true);
           $mail->Subject = "Registration on tutablog";
-          $mail->setFrom("oluchi.web@gmail.com", "Tutablog");
+          $mail->setFrom("okorondukwe@outlook.com", "Tutablog");
           $mail->Body = " <p> Hi <b> $first_name $last_name!</b></p>
                         
                         Your registration on tablog was successful. Please find your login details below: <br>
@@ -178,11 +171,12 @@ if(isset($_POST['submit'])){
           $mail->addAddress($email);
         
           if( $mail->send()){
+            header("Location: ./admin-register-user.php?success");
            
           }else{
-            exit();
+            
             header("Location: ./admin-register-user.php?partial");
-
+            exit();
 
           }
           $mail->smtpClose();
@@ -192,8 +186,9 @@ if(isset($_POST['submit'])){
 
       }
     
-  }
+    }
  
 
+  }
 }
 

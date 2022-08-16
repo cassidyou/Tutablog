@@ -1,24 +1,43 @@
 <?php
 $foodPosts = getPostsByLimit('food', 4); 
 
+$fashions = getPostsByLimit('fashion', 2); 
+$foods = getPostsByLimit('food', 2); 
+$commerces = getPostsByLimit('commerce', 2); 
+$engineerings = getPostsByLimit('engineering', 2); 
+$energys = getPostsByLimit('energy', 2); 
+$travels = getPostsByLimit('travel', 2);
+
+// print_r($energys)
+
+
+
 
 ?>
+
+
+
+
 <div class="toppest">
-   <div>Lorem, ipsum.</div>
+   <div id="welcome-text" class="d-none d-md-block"></div>
    <div class="social-connect">
-   <li><a href=""><span class="fab fa-facebook"></span></a> </li>
-   <li><a href=""><span class="fab fa-linkedin"></span></a> </li>
-   <li><a href=""><span class="fab fa-twitter"></span></a> </li>
-   <li><a href=""><span class="fab fa-whatsapp"></span></a> </li>
-   <li><a href=""><span class="fas fa-envelope"></span></a> </li>
-   <li><a href=""><span class="fa fa-phone"></span></a> </li>
+      <li><a href="https://web.facebook.com/marriageslaws"><span class="fab fa-facebook"></span></a> </li>
+      <li><a href="https://www.instagram.com/oluchicassidy/?hl=en"><span class="fab fa-instagram"></span></a></li>
+      <li><a href="https://twitter.com/OluchiCassidy1"><span class="fab fa-twitter"></span></a> </li>
+      <li><a href="https://wa.me/message/5Y5DSSISWG3BB1"><span class="fab fa-whatsapp"></span></a> </li>
+      <li><a href="mailto: ndukweokorouduma@gmail.com"><span class="fas fa-envelope"></span></a> </li>
+      <li><a href="Tel: 08130855737"><span class="fa fa-phone"></span></a> </li>
    </div>
   </div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="index.php">TutaBlog</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="">menu</span>
-    </button>
+    <div class="border-none">
+     <span class="day"></span>
+     <span class="month"></span>
+     <span class="year"></span>
+    </div>
+
+   
   
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto text-dark">
@@ -33,7 +52,8 @@ $foodPosts = getPostsByLimit('food', 4);
                 <div class="col-lg-3 drop-item">
                   <div class="img-container">
                     <a href=single-post.php?slug=<?php echo $post['slug'] ?>&id=<?php echo $post['category_id'] ?>>
-                    <img src="<?php echo $post['image']  ?>" class="img-fluid dropdown-img">
+                   
+                    <?php echo "<img src=uploads/".$post['image']." class='img-fluid dropdown-img'>" ?>
                   </a>
                   </div>
                   <div>
@@ -63,7 +83,8 @@ $foodPosts = getPostsByLimit('food', 4);
                 <div class="col-lg-3 drop-item">
                   <div class="img-container">
                     <a href=single-post.php?slug=<?php echo $postf['slug'] ?>&id=<?php echo $postf['category_id'] ?>>
-                    <img src="<?php echo $postf['image']  ?>" class="img-fluid dropdown-img">
+                    <?php echo "<img src=uploads/".$postf['image']." class='img-fluid dropdown-img'>" ?>
+                    
                   </a>
                   </div>
                   <div>
@@ -89,50 +110,72 @@ $foodPosts = getPostsByLimit('food', 4);
          <div class="dropdown-items-explore">
           <div class="containerfluid">
             <div class="row">
-              <div class="col-lg-2">
-                <h4><b>Living</b></h4>
+              <div class="col-lg-3">
+                <h4><b><?php echo $travels['0']['category_name'] ?></b></h4>
                 <ul>
-                  <li><a href="">Education</a></li>
-                  <li><a href="">Relationships</a></li>
+                  <?php foreach($travels as $travel) : ?>
+                    <li><a href=single-post.php?slug=<?php echo $travel['slug'] ?>&id=<?php echo $travel['category_id'] ?>><?php echo $travel['title'] ?></a></li>
+                  <?php endforeach ?>
                 </ul>
               </div>
-              <div class="col-lg-2">
-                <h4><b>Arts</b></h4>
+              <div class="col-lg-3">
+                <h4><b><?php echo $engineerings['0']['category_name'] ?></b></h4>
                 <ul>
-                  <li><a href="">Movies</a></li>
-                  <li><a href="">Music</a></li>
+                  <?php foreach($engineerings as $engineering) : ?>
+                    <li><a href=single-post.php?slug=<?php echo $engineering['slug'] ?>&id=<?php echo $engineering['category_id'] ?>><?php echo $engineering['title'] ?></a></li>
+                  <?php endforeach ?>
                 </ul>
               </div>
-              <div class="col-lg-2">
-                <h4><b>Fashion</b></h4>
+              <div class="col-lg-3">
+                <h4><b><?php echo $commerces['0']['category_name'] ?></b></h4>
                 <ul>
-                  <li><a href="">Women Fashion</a></li>
-                  <li><a href="">Men Fashion</a></li>
+                  <?php foreach($commerces as $commerce) : ?>
+                    <li><a href=single-post.php?slug=<?php echo $commerce['slug'] ?>&id=<?php echo $commerce['category_id'] ?>><?php echo $commerce['title'] ?></a></li>
+                  <?php endforeach ?>
                 </ul>
               </div>
-              <div class="col-lg-2">
-                <h4><b>Lifestyle</b></h4>
+              <div class="col-lg-3">
+                <h4><b><?php echo $foods['0']['category_name'] ?></b></h4>
                 <ul>
-                  <li><a href="">Beauty</a></li>
-                  <li><a href="">Travel</a></li>
+                  <?php foreach($foods as $food) : ?>
+                    <li><a href=single-post.php?slug=<?php echo $food['slug'] ?>&id=<?php echo $food['category_id'] ?>><?php echo $food['title'] ?></a></li>
+                  <?php endforeach ?>
                 </ul>
               </div>
-              <div class="col-lg-2">
-                <h4><b>Sports</b></h4>
+            </div>
+            <div class="row mt-4">
+              <div class="col-lg-3">
+                <h4><b><?php echo $fashions['0']['category_name'] ?></b></h4>
                 <ul>
-                  <li><a href="">Football</a></li>
-                  <li><a href="">Basketball</a></li>
+                  <?php foreach($fashions as $fashion) : ?>
+                    <li><a href=single-post.php?slug=<?php echo $fashion['slug'] ?>&id=<?php echo $fashion['category_id'] ?>><?php echo $fashion['title'] ?></a></li>
+                  <?php endforeach ?>
                 </ul>
               </div>
-              <div class="col-lg-2">
-                <h4><b>Food</b></h4>
+              <div class="col-lg-3">
+                <h4><b><?php echo $energys['0']['category_name'] ?></b></h4>
                 <ul>
-                  <li><a href="">African</a></li>
-                  <li><a href="">American</a></li>
+                  <?php foreach($energys as $energy) : ?>
+                    <li><a href=single-post.php?slug=<?php echo $energy['slug'] ?>&id=<?php echo $energy['category_id'] ?>><?php echo $energy['title'] ?></a></li>
+                  <?php endforeach ?>
                 </ul>
               </div>
-             
-              
+              <!-- <div class="col-lg-3">
+                <h4><b><?php echo $commerces['0']['category_name'] ?></b></h4>
+                <ul>
+                  <?php foreach($commerces as $commerce) : ?>
+                    <li><a href=single-post.php?slug=<?php echo $commerce['slug'] ?>&id=<?php echo $commerce['category_id'] ?>><?php echo $commerce['title'] ?></a></li>
+                  <?php endforeach ?>
+                </ul>
+              </div>
+              <div class="col-lg-3">
+                <h4><b><?php echo $foods['0']['category_name'] ?></b></h4>
+                <ul>
+                  <?php foreach($foods as $food) : ?>
+                    <li><a href=single-post.php?slug=<?php echo $food['slug'] ?>&id=<?php echo $food['category_id'] ?>><?php echo $food['title'] ?></a></li>
+                  <?php endforeach ?>
+                </ul>
+              </div> -->
             </div>
           </div>
         </div>
@@ -143,10 +186,10 @@ $foodPosts = getPostsByLimit('food', 4);
         
       </form>
       <div class="blog-date d-none d-lg-flex"> 
-        <div class="day ml-5 mr-2"> <h2>9</h2></div>
+        <div class="day ml-5 mr-2"></div>
         <div class="month-year">
-          <li class="year">July</li>
-          <li class="month">2022</li>
+          <li class="month"></li>
+          <li class="year"></li>
         </div>
       </div>
     </div>
@@ -200,6 +243,98 @@ $foodPosts = getPostsByLimit('food', 4);
         xmlhttp.send();
       }
     }
+
+
+
+    //Date 
+    let d = new Date();
+    let year = d.getFullYear();
+    let month = d.getMonth();
+    let today = d.getDate();
+    switch(month){
+      case 0: 
+        month = "Jan.";
+        break;
+      case 1: 
+        month = "Feb.";
+        break;
+      case 2: 
+        month = "Mar.";
+        break;
+      case 3: 
+        month = "Apri.";
+        break;
+      case 4: 
+        month = "May";
+        break;
+      case 5: 
+        month = "Jun.";
+        break;
+      case 6: 
+        month = "Jul.";
+        break;
+      case 7: 
+        month = "Aug.";
+        break;
+      case 8: 
+        month = "Sep.";
+        break;
+      case 9: 
+        month = "Oct.";
+        break;
+      case 10: 
+        month = "Nov.";
+        break;
+      case 11: 
+        month = "Dec.";
+        break;
+    }
+
+    document.querySelector(".year").innerHTML = year;
+    document.querySelector(".month").innerHTML = month;
+    document.querySelector(".day").innerHTML = today;
+
+
+    //Typing and deleting effect
+    const words = ["Welcome to Tutablog... The home of blogging... please explore our inexhaustible publications as it interests you"];
+    let i = 0;
+    let timer;
+
+    function typingEffect() {
+        let word = words[i].split("");
+        var loopTyping = function() {
+            if (word.length > 0) {
+                document.getElementById('welcome-text').innerHTML += word.shift();
+            } else {
+                deletingEffect();
+                return false;
+            };
+            timer = setTimeout(loopTyping, 200);
+        };
+        loopTyping();
+    };
+
+    function deletingEffect() {
+        let word = words[i].split("");
+        var loopDeleting = function() {
+            if (word.length > 0) {
+                word.pop();
+                document.getElementById('welcome-text').innerHTML = word.join("");
+            } else {
+                if (words.length > (i + 1)) {
+                    i++;
+                } else {
+                    i = 0;
+                };
+                typingEffect();
+                return false;
+            };
+            timer = setTimeout(loopDeleting, 200);
+        };
+        loopDeleting();
+    };
+
+    typingEffect();
     
   </script>
 

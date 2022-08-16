@@ -1,7 +1,6 @@
 <?php 
-include_once 'includes/Bank.php';
-
-
+require_once 'blog-config.php';
+require_once 'includes/Bank.php';
 
 
 
@@ -16,20 +15,18 @@ if(isset($_POST['submit'])){
    $slug = slugify($title);
 
 
-  //Form validation
 
+  //Form validation
+  $image = $_FILES['image'];
 if ($_FILES['image']['size'] === 0){
    $errors[] = 'No image selected, please chose post image.';
-  }else{
-    $image = $_FILES['image'] ?? null;
-
-    $imagePath = '';
-    if ($image && $image['tmp_name']){
+  }elseif($image && $image['tmp_name']){
+  $imagePath = '';
 
 
       $imageFileType = strtolower(pathinfo($_FILES["image"]["name"],PATHINFO_EXTENSION));
       
-      
+   
       //Check if file is an image
       $check = getimagesize($_FILES["image"]["tmp_name"]);
       if (!$check) {
@@ -49,7 +46,7 @@ if ($_FILES['image']['size'] === 0){
         
       }
 
-    }
+    
   };
 
   // Check if input fields are empty
@@ -71,19 +68,41 @@ if ($_FILES['image']['size'] === 0){
 
 
    if(empty($errors)){
-     $imagePath = 'uploads/'.randomName(8).'/'.$image['name'];
-      mkdir(dirname($imagePath));
+    
+    //move the image to the uploads directory
+     $imagePath = 'uploads/post'.randomName(8).$image['name'];
         move_uploaded_file($image['tmp_name'], $imagePath);
 
+      //Fetch the watermark image from the watermark table
+      $stmt = $conn->prepare("SELECT * FROM watermark");
+      $stmt->execute();
+      $watermarks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $stmt = $conn->prepare("INSERT INTO posts (user_id, title, slug, image, body, published, created_at)
+      //watermark image
+      $watermark_image = $watermarks[0]['image'];
+
+
+      //Do not add insert watermark image to the post if the user selected no for watermark
+        if($watermark == 0){
+          $stmt = $conn->prepare("INSERT INTO posts (user_id, title, slug, image, body, published, created_at)
                               VALUES(?, ?, ?, ?, ?, ?, ?);");
 
-        $stmt->execute([$author, $title, $slug, $imagePath, $post_body, 0, $date]);
+        $stmt->execute([$author, $title, $slug, basename($imagePath), $post_body, 0, $date]);
+
+        //Insert watermark image to the post if the user selected yes for watermark
+        }elseif($watermark == 1){
+
+          $stmt = $conn->prepare("INSERT INTO posts (user_id, title, slug, image, body, watermark, published, created_at)
+                              VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
+
+        $stmt->execute([$author, $title, $slug, basename($imagePath), $post_body, $watermark_image, 0, $date]);
+        }
+
+        
 
 
 
-       //Getting the last inserted post_id
+    //    //Getting the last inserted post_id
         $post_id = $conn->lastInsertId();
 
         //Inserting this post to it's category table
@@ -92,10 +111,39 @@ if ($_FILES['image']['size'] === 0){
 
 
 
+    $post_id = $conn->lastInsertId();
+
+      $source_id = $_SESSION['id'];
+        $post_title = $title;
+        $title = "Created a post";
+        $message = "Submitted a post titled <b><i>".strtoupper($post_title)."</i></b> for review and publishing.";
+        
+        
+        //Fetching the data of All the Admins
+        $sql = $conn->prepare("SELECT id FROM users WHERE role = ?");
+        $sql->execute(["Admin"]);
+        $results = $sql->fetchAll(PDO::FETCH_ASSOC);
+        
+        
+        foreach($results as $admin_id){
+          $stmt = $conn->prepare("INSERT INTO notification (destination_id, source_id, post_id, title, message) 
+                                VALUES (?, ?, ?, ?, ?)");
+          $stmt->execute([$admin_id['id'], $source_id, $post_id, $title, $message]);  
+        }
+        
+
+
+
+
+
      //redirect to create page
      header("location: ./admin-create-post.php?msg");
    }
+
+ 
   
 
 }
+
+
 

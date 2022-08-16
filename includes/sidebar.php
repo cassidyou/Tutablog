@@ -34,9 +34,8 @@ $recentPosts = mostRecentPosts(2);
               <h3 class="heading sidebar-heading">Most Recent Post</h3>
               
                 <?php foreach($recentPosts as $recentPost) : ?>
-                  <div class="post">      
-                      <img src="<?php echo $recentPost['image'] ?>" class="img-fluid w-50">
-                      <!-- <h6 ><a href="">Style Tips Every Woman Should Know</a></h6> -->
+                  <div class="post">  
+                      <?php echo "<img src=uploads/".$recentPost['image']." class='img-fluid w-50'>"  ?>    
                       <a class="sidebar-title" href=single-post.php?slug=<?php echo $recentPost['slug'] ?>&id=<?php echo $recentPost['category_id'] ?>>
                         <?php echo $recentPost['title'] ?>
                       </a>
@@ -56,7 +55,7 @@ $recentPosts = mostRecentPosts(2);
 
               <?php foreach($popularposts as $popularPost) : ?>
                 <div class="post">
-                <img src="<?php echo $popularPost['image'] ?>" class="img-fluid w-50">
+                <?php echo "<img src=uploads/".$popularPost['image']." class='img-fluid w-50'>"  ?>   
                 <a class="sidebar-title" href=single-post.php?slug=<?php echo $popularPost['slug'] ?>&id=<?php echo $popularPost['category_id'] ?>>
                         <?php echo $popularPost['title'] ?>
                       </a>
@@ -64,7 +63,6 @@ $recentPosts = mostRecentPosts(2);
               <hr>
 
               <?php endforeach ?>
-             
 
            
               
@@ -88,24 +86,24 @@ $recentPosts = mostRecentPosts(2);
 
               <h3 class="heading sidebar-heading mt-5 pt-3">Get in touch with us</h3>
               <ul class="social-icons">
-                <li><a href=""><span class="fab fa-facebook fa-2x"></span></a></li>
-                <li><a href=""><span class="fab fa-whatsapp fa-2x"></span></a></li>
-                <li><a href=""><span class="fab fa-instagram fa-2x"></span></a></li>
-                <li><a href=""><span class="fab fa-twitter fa-2x"></span></a></li>
-                <li><a href=""><span class="fab fa-linkedin fa-2x"></span></a></li>
+                <li><a href="https://web.facebook.com/marriageslaws"><span class="fab fa-facebook fa-2x"></span></a></li>
+                <li><a href="https://wa.me/message/5Y5DSSISWG3BB1"><span class="fab fa-whatsapp fa-2x"></span></a></li>
+                <li><a href="https://www.instagram.com/oluchicassidy/?hl=en"><span class="fab fa-instagram fa-2x"></span></a></li>
+                <li><a href="https://twitter.com/OluchiCassidy1"><span class="fab fa-twitter fa-2x"></span></a></li>
+              
               </ul>
               <br>
 
 
               <br>
-              <div id="admin-profile" class="text-center my-5 bg-white p-4">
+              <!-- <div id="admin-profile" class="text-center my-5 bg-white p-4">
                 <img src="assets/img/admin-img.jpg" class="img-fluid rounded-circle w-50">
                 <p class="py-3">
                   Hi, My name is Stepheny, welcome to my space. Here I share trans...
                 </p>
 
                 <a href="" id="profile-btn">visit My Profile</a>
-              </div>
+              </div> -->
             </div>
           </div>
         </aside>

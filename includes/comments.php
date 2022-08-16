@@ -28,7 +28,44 @@ if(isset($_POST['getcomments'])){
 }
 
 
+//register likes
+if(isset($_POST['likes'])){
+    $post_id = htmlspecialchars($_POST['post_id']);
+    $user_ip = htmlspecialchars($_POST['user_ip']);
 
+   echo registerLikes($post_id, $user_ip);
+}
+
+
+//get likes 
+if(isset($_POST['getlikes'])){
+    $post_id = htmlspecialchars($_POST['post_id']);
+    echo getLikes($post_id);
+}
+
+
+//register replies
+if(isset($_POST['reply'])){
+    $username = cleanInput($_POST['username']);
+    $reply = cleanInput($_POST['reply']);
+    $comment_id = $_POST['comment_id'];
+
+    //registers the replies
+    $replies = registerReplies($comment_id, $username, $reply);
+   
+   echo $replies;
+    
+}
+
+//get replies count
+if(isset($_POST['get_reply_count'])){
+    $comment_id = $_POST['comment_id'];
+
+    $reply = getRepliesCount($comment_id);
+    echo $reply. " replies";
+    
+
+}
 
 
 

@@ -9,11 +9,33 @@ $posts = getAllPosts();
 <title>Blog Post</title>
 <?php include_once 'admin/navbar.php' ?>
 <style>
-  .post-content{
+  .post-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    column-gap: 40px;
+    overflow: visible;
+    
+}
+
+.post-content{
+    position: relative;
     border: 1px solid rgb(236, 234, 234);
     border-radius: 1px;
     transition: all 0.5s ease-in-out;
+    
 }
+
+.post-img{
+    position: relative;
+    overflow: hidden;
+}
+.post-img img{
+    width: 100%;
+    height: 16rem;
+    transition: all 1s ease-in-out;
+}
+
 
 .post-content:hover{
     transform: translateY(-10px);
@@ -31,7 +53,6 @@ $posts = getAllPosts();
     height: 16rem;
     transition: all 1s ease-in-out;
 }
-
 .post-img img:hover{
     transform: scale(1.3);
   }
@@ -71,6 +92,18 @@ $posts = getAllPosts();
     right: 0!important;
     font-size: 1rem;
 }
+.watermark{
+  position: absolute;
+  z-index: 9999;
+  height: 50px;
+  width: 150px;
+  top: 150px;
+  right: 10px;
+}
+
+.watermark img{
+  height: 150px;
+}
 </style>
 
                   <h5 class="page-title my-4">Blog Posts</h5>
@@ -92,12 +125,18 @@ $date = date('M d, Y ', strtotime($post['created_at']));
 $title = $post['title'];
 $slug = $post['slug'];
 $image = $post['image'];
+$watermark = $post['watermark'];
 ?>
 <div class="col-12 col-md-6 col-lg-4 mb-5">
   <div class="post-content">
+        <?php 
+            if(isset($watermark)){
+                echo "<span class='watermark'><img src=uploads/".$watermark."></span>";
+              }
+          ?>
     <div class="post-img">
-      <a href=""><img src="<?php echo $image ?>" class="img-fluid h-50"></a>
-      <!-- <h5 class="post-category">Fashion</h5> -->
+      <?php echo "<a href=''><img src=uploads/". $image." class='img-fluid'></a>" ?>
+      
     </div>
     <div class="post-date"><?php echo  $date ?> </div>
     <div class="post-title">

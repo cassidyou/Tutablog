@@ -88,7 +88,7 @@ $usersposts = getAllUserPosts($_SESSION['id']);
                                     
                                     <tr>
                                       <th scope="row"><?php echo $id ?></th>
-                                      <td><img src="<?php echo $post['image'] ?>" style="height: 50px;"></td>
+                                      <td><?php echo "<img src=uploads/".$post['image']." style='height: 50px;'>"?></td>
                                       <td><p><?php echo $title?></p></td>
                                       <td><p><?php echo $author_firstname. " ". $author_lastname; ?></p></td>
                                       <td><?php echo $category ?></td>
@@ -143,7 +143,7 @@ $usersposts = getAllUserPosts($_SESSION['id']);
                                     
                                     <tr>
                                       <th scope="row"><?php echo $id ?></th>
-                                      <td><img src="<?php echo $userspost['image'] ?>" style="height: 50px;"></td>
+                                      <td><?php echo "<img src=uploads/".$userspost['image']." style='height: 100px'>" ?></td>
                                       <td><p><?php echo $title?></p></td>
                                       <td><?php echo $category ?></td>
                                       

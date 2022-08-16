@@ -1,4 +1,5 @@
 <?php
+require_once '../blog-config.php';
 require_once 'PHPMailer.php'; 
 require_once 'SMTP.php'; 
 require_once 'Exception.php';
@@ -8,6 +9,8 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 require_once '../includes/Bank.php';
+require_once '../vendor/autoload.php';
+
 ?>
 
 
@@ -19,13 +22,17 @@ require_once '../includes/Bank.php';
 
 <?php if (isset($_GET['slug'])) : ?>
     <?php 
+
     
+    
+        global $conn;
+
         $slug = $_GET['slug'];
         $stmt = $conn->prepare("UPDATE posts SET published = ? WHERE slug = ?");
         $stmt->execute([1, $slug]);
 
-        $stmt = $conn->prepare("SELECT * FROM posts WHERE slug = ?");
-        $stmt = $conn->prepare('SELECT  posts.*, category.id AS category_id, category.category_name
+        //Getting posts information
+        $sql = $conn->prepare('SELECT  posts.*, category.id AS category_id, category.category_name
         FROM posts 
         JOIN post_category
         ON posts.id = post_category.post_id
@@ -33,22 +40,74 @@ require_once '../includes/Bank.php';
         ON post_category.category_id = category.id
         WHERE posts.slug = ?');
 
-        $stmt->execute([$slug]);
-        $post = $stmt->fetch(PDO::FETCH_ASSOC);
+        $sql->execute([$slug]);
+        $post = $sql->fetch(PDO::FETCH_ASSOC);
+        
+        
+        
+        //Inserting notification into the notification table
+        $destination_id = $post['user_id'];
+        $source_id = $_SESSION['id'];
+        $post_id = $post['id']; 
+        $post_title = $post['title'];
+        $title = 'Published your post';
+        $message = 'Your post titled <b><i>'.strtoupper($post_title).'</i></b> has been reviewed and published.';
+
+        $stmt = $conn->prepare("INSERT INTO notification (destination_id, source_id, post_id, title, message) 
+                VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$destination_id, $source_id, $post_id, $title, $message]);
+ 
     
+        //Getting subscribers
         $stmt = $conn->prepare("SELECT name, email FROM subscribers");
         $stmt->execute();
         $subscribers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $content = $post['body'];
-        $excerpt = substr($post['body'], 0, 400)."...";
+        $excerpt = htmlspecialchars_decode(substr($post['body'], 0, 400)."...");
         $date = date('M d, Y ', strtotime($post['created_at']));
         $title = $post['title'];
         $image = $post['image'];
         $category_id = $post['category_id'];
         
-    ?>
+
+        // Autoposting to Facebook page
+        $fb = new Facebook\Facebook([
+            'app_id' => '838326420482072',
+            'app_secret' => '9a101697382f3782d6dfaeef1ff06859',
+            'default_graph_version' => 'v2.2'
+        ]);
+
+
+        $message = [
+            // 'caption' => $title,
+            'message'=> strtoupper($title)."\n \n" .$excerpt,
+            
+            // 'picture' => $image
+            // 'description' => 'Tutablog is an education and information blog',
+            // 'caption' => 'PHP GraphAPI',
+            // 'link' => 'http://localhost/tutablog/single-post.php?slug='.$slug.'&id='.$category_id,
+            
+            
+        ];
+
+        $pageAccessToken = 'EAAL6dBRZCqBgBAP6CYfV70aPbUWXweAD1MasXgZAJVLsKLPsx4GqSegpYws4lXUazRz6fgA3XSAHvPDZC3dP8aPZCJzSFYDhLLzSHMthNBZAJkUSYOgAA9c7NaVe1UQb2zDafePIqNyEQ6j73yyXL5ZApDMqBRy90098eHjvR2EStX5wAHajwv';
+    try{
+        $reponse = $fb->post('me/feed', $message, $pageAccessToken);
+    }catch( Facebook\Exceptions\FacebookResponseException $e){
+        echo "Graph returned an error: ".$e->getMessage();
+    }catch(Facebook\Exceptions\FacebookSDKException $e){
+        echo 'Facebook SDK returned an error: '.$e->getMessage();
+        exit;
+    }
+   
+     
         
+    ?>
+
+    
+
+    <!-- Sending notification to subscribers -->
     <?php foreach($subscribers as $subscriber) : ?>
         <?php $name = $subscriber['name'] ?>
         <?php 
@@ -86,6 +145,9 @@ require_once '../includes/Bank.php';
                 <div class='readmore text-right'>
                 <a  href='http://localhost/tutablog/single-post.php?slug=$slug&id=$category_id'>Click here to read</a>
                 </div>
+                <p>If you don't want to receive notifications about our new blog post, please click 
+                    <a http://localhost/tutablog/unsubscribe.php> Unsubscribe</a>
+                </p>
             </div>
                 <br>
                 <br>
@@ -95,27 +157,13 @@ require_once '../includes/Bank.php';
             $mail->addAddress($subscriber['email']);
             
             if( $mail->send()){
-                  header("Location: ../admin-manage-post.php?success");
+                header("Location: ../admin-manage-post.php?success");
                 }else{
-                  header("Location: ../admin-manage-post.php?partial");
-        
+                    header("Location: ../admin-manage-post.php?partial");
                 }
         ?>
 
     <?php endforeach ?>
-
-   
-
-       
-
-
-  
-
-
-
-
-
-
 
 <?php endif?>
 

@@ -11,6 +11,21 @@ $posts = getPostByCategory($category_id);
 
 
     <title>Fashion</title>
+
+    <style>
+      .watermark{
+  position: absolute;
+  z-index: 9999;
+  height: 50px;
+  width: 150px;
+  top: 150px;
+  right: 0;
+}
+
+.watermark img{
+  height: 150px;
+}
+    </style>
 </head>
 <body>
 
@@ -46,11 +61,20 @@ $posts = getPostByCategory($category_id);
           $date = date('M d, Y ', strtotime($post['created_at']));
           $title = $post['title'];
           $slug = $post['slug'];
+          $watermark = $post['watermark'];
+          $image = $post['image'];
           ?>
         <div class="col-md-6 mb-5">
           <div class="post-content">
+          <?php 
+                  if(isset($watermark)){
+                          echo "<span class='watermark'><img src=uploads/".$watermark."></span>";
+                        }
+                ?>
             <div class="post-img">
-              <a href=""><img src="<?php echo $post['image'] ?>" class="h-50"></a>
+            <?php 
+                      echo "<a href=single-post.php?slug=".$slug."&id=".$category_id."><img src=uploads/".$image."></a>";
+                    ?>
               <!-- <h5 class="post-category">Fashion</h5> -->
             </div>
             <div class="post-date"><?php echo  $date ?> </div>

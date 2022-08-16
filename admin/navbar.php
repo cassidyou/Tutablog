@@ -1,5 +1,25 @@
 </head>
-
+<style>
+    button{
+        color: transparent;
+        border-color: transparent;
+        background-color: transparent;
+    }
+    .seen0{
+        font-weight: 1000;
+        color: black!important;
+    }
+    .seen1{
+        font-weight: lighter!important;
+        
+    }
+    #mark-read{
+        float: right;
+        cursor: pointer;
+        margin-bottom: 8px;
+        display: block;
+    }
+</style>
 
 
 
@@ -21,8 +41,9 @@
                             <li><a href="admin-blog-post.php">Blog Post</a> </li>
                             <li><a href="admin-create-post.php">Create Post</a> </li>
                             <li><a href="admin-create-category.php">Create Category</a> </li>
+                            <li><a href="admin-create-watermark.php">Update Watermark</a></li>
                             <li><a href="users.php">All Users</a> </li>
-                            <li><a href="admin-register-user.php">Register user</a> </li>
+                            <li><a href="admin-register-user.php">Register user</a></li>
                         </ul>
                     <?php }else{ ?>
                         <ul>
@@ -60,71 +81,35 @@
     
     
                         <ul class="admin-navbar-nav">
-                        <li class="mx-4 msg li-card-l">
+                        <li class="mx-4 msg li-card-l" title="Notification">
                             <span title="Notification" class="fa fa-bell "></span>
-                            <span class=" bg-success unseen">4</span>
+                            <span class=" bg-success unseen" id="unseen"></span>
                             <div class="card nav-card nav-card-l">
                                 <div class="card-header">
                                     <h5><b>Notifications</b> </h5>
-                                    <h6>Clear All</h6>
                                 </div>
-                                <div class="card-body">
-                                  <div class="messages">
-                                    <div class="noticon">
-                                        <span class="fa fa-cog"></span>
-                                    </div>
-                                    <div>
-                                        <span class="d-block"><b>New settings</b></span>
-                                        <span>There are new setting</span>
-                                    </div>
-                                  </div>
-                                  <hr>
+                                <div class="card-body" id="notification">
+                                  
                                 </div>
                                 <div class="card-footer text-center">
-                                    <a href="">See all Notifications</a>
+                                    <a href="user-notification-page.php"<?php echo $_SESSION['id'] ?>>See all Notifications</a>
                                 </div>
                             </div>
                         </li>
-                        <li class="mr-4 msg li-card-c">
-                            <span title="Messages" class="fa fa-envelope "></span>
-                            <span class=" bg-danger unseen">16</span>
-    
-                            <div class="card nav-card nav-card-c">
-                                <div class="card-header">
-                                    <h5><b>Messages</b> </h5>
-                                    <h6>Clear All</h6>
-                                </div>
-                                <div class="card-body">                                
-                                  <div class="messages">
-                                    <div>
-                                        <img src="assets/img/interns-img/Nwafili Vincent Chinonso.jpeg" class="msg-img">
-                                    </div>
-                                    <div>
-                                        <span class="d-block"><b>Daniel</b></span>
-                                        <span>Nice meeting you....</span>
-                                    </div>
-                                  </div>
-                                  <hr>
-                                </div>
-                                <div class="card-footer text-center">
-                                    <a href="">See all Messages</a>
-                                </div>
-                            </div>
-    
-                        </li>
+                      
                         <li class="li-with-card li-card-r">
                         <?php if(isset($_SESSION['image'])) : ?>
-                             <img src=<?php echo $_SESSION['image'] ?> class="img-fluid admin-img">
-
+                           <?php echo "<img src=uploads/".$_SESSION['image']." class='img-fluid admin-img'>" ?>
                         <?php endif ?>
 
                             
                             <div class="card nav-card nav-card-r">
                                 <div class="card-body">
                                    <div>
-                                    <div><a href=""><span class="fa fa-user"></span>&nbsp; Profile</a></div>
+                                    <div><a href="user-profile.php"><span class="fa fa-user"></span>&nbsp; Profile</a></div>
                                     <br>
-                                    <div><a href=""><span class="fa fa-cog"></span>&nbsp; Setting</a></div>
+                                    <div><a href="user-setting.php"><span class="fa fa-cog"></span>&nbsp; Setting</a></div>
+                                   
                                    </div>
                                 </div>
                                 <div class="card-footer">
@@ -140,3 +125,182 @@
                     </nav>
                     </div>
                     <div class="col-12 mt-5 pt-5">
+
+
+                    <?php if(isset($_SESSION['role']) && $_SESSION['role'] == "Admin") : ?>
+                         <!-- echo $_SESSION['id'];  -->
+                         <button id='user_id' value="<?php echo $_SESSION['id'] ?>"></button>
+                        <script>
+                                user_id = document.getElementById('user_id').value;
+                                // console.log("your id is: " + user_id)
+
+
+                                getNotificationCount(user_id);
+                                getNotification(user_id);
+                         
+                                function getNotificationCount(userID){
+                                
+                                    var xmlhttp = new XMLHttpRequest();
+                                    xmlhttp.open("GET", "./includes/notification.php?q=" + userID, true);
+
+                                    xmlhttp.onload = function(){
+                                    if(this.readyState == 4 && this.status == 200){
+                                        document.getElementById("unseen").innerHTML = this.responseText;
+                                    }else{
+                                        alert("Error: " + xmlhttp.status);
+                                        alert("Error: " + xmlhttp.statusText);
+                                    }
+                                    };
+                                    xmlhttp.send();
+                                }
+
+
+                                function getNotification(userID){
+                                
+                                    var xmlhttp = new XMLHttpRequest();
+                                    xmlhttp.open("GET", "./includes/notification.php?r=" + userID, true);
+
+                                    xmlhttp.onload = function(){
+                                    if(this.readyState == 4 && this.status == 200){
+                                        document.getElementById("notification").innerHTML = this.responseText;
+                                    }else{
+                                        alert("Error: " + xmlhttp.status);
+                                        alert("Error: " + xmlhttp.statusText);
+                                    }
+                                    };
+                                    xmlhttp.send();
+                                }
+
+                                // 
+                                setInterval(() => {
+                                    user_id = document.getElementById('user_id').value;
+                                    var xmlhttp = new XMLHttpRequest();
+                                    xmlhttp.open("GET", "./includes/notification.php?r=" + user_id, true);
+
+                                    xmlhttp.onload = function(){
+                                    if(this.readyState == 4 && this.status == 200){
+                                        document.getElementById("notification").innerHTML = this.responseText;
+                                    }else{
+                                        alert("Error: " + xmlhttp.status);
+                                        alert("Error: " + xmlhttp.statusText);
+                                    }
+                                    };
+                                    xmlhttp.send();
+
+                                }, 1000);
+
+                                setInterval(() => {
+                                    user_id = document.getElementById('user_id').value;
+                                    var xmlhttp = new XMLHttpRequest();
+                                    xmlhttp.open("GET", "./includes/notification.php?q=" + user_id, true);
+
+                                    xmlhttp.onload = function(){
+                                    if(this.readyState == 4 && this.status == 200){
+                                        document.getElementById("unseen").innerHTML = this.responseText;
+                                    }else{
+                                        alert("Error: " + xmlhttp.status);
+                                        alert("Error: " + xmlhttp.statusText);
+                                    }
+                                    };
+                                    xmlhttp.send();
+                
+                                }, 1000);
+
+
+                        
+                        </script>
+
+                         
+                    <?php endif ?>
+
+                    <?php if(isset($_SESSION['role']) && $_SESSION['role'] == "Author") : ?>
+                        <!-- echo $_SESSION['id'];  -->
+                       <button id='user_id' value="<?php echo $_SESSION['id'] ?>"></button>
+
+
+
+                        <script>
+                                user_id = document.getElementById('user_id').value;
+                                console.log("your id is: " + user_id);
+
+                                getNotificationCount(user_id);
+                                getNotification(user_id);
+                         
+                                function getNotificationCount(userID){
+                                
+                                    var xmlhttp = new XMLHttpRequest();
+                                    xmlhttp.open("GET", "./includes/notification.php?q=" + userID, true);
+
+                                    xmlhttp.onload = function(){
+                                    if(this.readyState == 4 && this.status == 200){
+                                        document.getElementById("unseen").innerHTML = this.responseText;
+                                    }else{
+                                        alert("Error: " + xmlhttp.status);
+                                        alert("Error: " + xmlhttp.statusText);
+                                    }
+                                    };
+                                    xmlhttp.send();
+                                }
+
+                                function getNotification(userID){
+                                
+                                var xmlhttp = new XMLHttpRequest();
+                                xmlhttp.open("GET", "./includes/notification.php?r=" + userID, true);
+
+                                xmlhttp.onload = function(){
+                                if(this.readyState == 4 && this.status == 200){
+                                    document.getElementById("notification").innerHTML = this.responseText;
+                                }else{
+                                    alert("Error: " + xmlhttp.status);
+                                    alert("Error: " + xmlhttp.statusText);
+                                }
+                                };
+                                xmlhttp.send();
+                            }
+
+
+                            setInterval(() => {
+                                    user_id = document.getElementById('user_id').value;
+                                    var xmlhttp = new XMLHttpRequest();
+                                    xmlhttp.open("GET", "./includes/notification.php?r=" + user_id, true);
+
+                                    xmlhttp.onload = function(){
+                                    if(this.readyState == 4 && this.status == 200){
+                                        document.getElementById("notification").innerHTML = this.responseText;
+                                    }else{
+                                        alert("Error: " + xmlhttp.status);
+                                        alert("Error: " + xmlhttp.statusText);
+                                    }
+                                    };
+                                    xmlhttp.send();
+
+                                }, 1000);
+
+                                setInterval(() => {
+                                    user_id = document.getElementById('user_id').value;
+                                    var xmlhttp = new XMLHttpRequest();
+                                    xmlhttp.open("GET", "./includes/notification.php?q=" + user_id, true);
+
+                                    xmlhttp.onload = function(){
+                                    if(this.readyState == 4 && this.status == 200){
+                                        document.getElementById("unseen").innerHTML = this.responseText;
+                                    }else{
+                                        alert("Error: " + xmlhttp.status);
+                                        alert("Error: " + xmlhttp.statusText);
+                                    }
+                                    };
+                                    xmlhttp.send();
+                
+                                }, 1000);
+
+                        
+                        </script>
+
+                        
+                   <?php endif ?>
+
+
+
+
+
+                    

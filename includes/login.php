@@ -1,5 +1,6 @@
 <?php
 
+
 if(isset($_POST['submit'])){
     $username = cleanInput($_POST['username']);
     $password = cleanInput($_POST['password']);

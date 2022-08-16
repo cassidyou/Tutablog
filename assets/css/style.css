@@ -1,15 +1,22 @@
 @import url('../css/fonts.css');
+html{
+    font-family: FSElliotPro-light;
+}
 body{
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     height: 100vh;
     overflow-y: hidden;
-    font-family: Abel;
+    font-family: Lexend-deca!important;
    
     
 }
-
+.form-control:focus{
+    outline: none!important;
+    border-color: rgba(0,0,0,0.2);
+    box-shadow: none;
+}
 ul{
     list-style: none;
 }
@@ -130,8 +137,8 @@ nav .menu-icon{
     display: none;
 }
 .nav-card-l{
-    width: 200px;
-    right: -30px;
+    width: 300px;
+    right: -5px;
     display: none;
    
 }
@@ -176,7 +183,7 @@ nav .menu-icon{
 .nav-card-c .card-body,
 .nav-card-l .card-body{
     padding:0 10px;
-    height: 200px;
+    height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
 }

@@ -16,6 +16,14 @@ include_once 'includes/login.php';
     <link rel="stylesheet" href="assets/css/all.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Login</title>
+
+    <style>
+        .form-control:focus{
+    outline: none!important;
+    border-color: rgba(0,0,0,0.2);
+    box-shadow: none;
+}
+    </style>
     </head>
     
 <body>
@@ -25,6 +33,7 @@ include_once 'includes/login.php';
         <div class="col-12 col-md-3 col-lg-4"></div>
         <div class="col-12 col-md-6 col-lg-4" id="admin-login">
 
+        
         <h3 class="text-center mt-2 mb-4">User Login</h3>
                 <?php if(isset($_GET['notfound'])){
                             $errMsg = $_GET['notfound'];
@@ -62,7 +71,10 @@ include_once 'includes/login.php';
 
                 <div class="text-center">
                 <input type="submit" name="submit" value="Login" class="btn btn-primary text-center">
-
+                    <div class="text-right mt-4">
+                        <a href="forgot-password.php">forgot password?</a>
+                    </div>
+                
                 </div>
 
             </form>

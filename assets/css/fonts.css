@@ -1,5 +1,9 @@
 
 @font-face {
+    font-family: FSElliotPro-light;
+    src: url('../fonts/FSElliotPro-Light.ttf');
+}
+@font-face {
     font-family: Abel;
     src: url('../fonts/Abel/Abel-Regular.ttf');
 }

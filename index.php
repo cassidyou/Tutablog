@@ -2,9 +2,25 @@
 require_once './blog-config.php';
 require_once 'includes/Bank.php';
 
-$posts = getPublishedPosts();
+
 $categories = getCategory();
 $allposts = getAllPosts();
+// print_r($allposts);
+
+if(isset($_GET['page'])){
+  $page = $_GET['page'];
+}else{
+  $page = 1;
+}
+
+$limit = 8;
+$start_from = ($page - 1) * $limit;
+$posts = getPublishedPosts($start_from, $limit);
+
+$stmt = $conn->prepare("SELECT * FROM posts WHERE published = ?");
+$stmt->execute(['1']);
+$number_of_results = $stmt->rowCount();
+$number_of_pages = ceil($number_of_results / $limit);
 
 ?>
 
@@ -39,7 +55,20 @@ $allposts = getAllPosts();
         </div>
     </div>
 
+<style>
+.watermark{
+  position: absolute;
+  z-index: 9999;
+  height: 50px;
+  width: 150px;
+  top: 150px;
+  right: 0;
+}
 
+.watermark img{
+  height: 150px;
+}
+</style>
    
 </header>
 
@@ -68,11 +97,20 @@ $allposts = getAllPosts();
             $title = $post['title'];
             $slug = $post['slug'];
             $image = $post['image'];
+            $watermark = $post['watermark'];
             ?>
             <div class="col-md-6 mb-5">
               <div class="post-content">
+                <?php 
+                  if(isset($watermark)){
+                          echo "<span class='watermark'><img src=uploads/".$watermark."></span>";
+                        }
+                ?>
                 <div class="post-img">
-                  <a href=single-post.php?slug=<?php echo $slug ?>&id=<?php echo $category_id ?>><img src="<?php echo $image ?>"></a>
+                    <?php 
+                      echo "<a href=single-post.php?slug=".$slug."&id=".$category_id."><img src=uploads/".$image."></a>";
+                    ?>
+                  
                   <!-- <h5 class="post-category">Fashion</h5> -->
                 </div>
                 <div class="post-date"><?php echo  $date ?> </div>
@@ -89,6 +127,37 @@ $allposts = getAllPosts();
           <?php endforeach ?>
         </div>
 
+        <div class="row text-center my-5">
+          <div class="col-12">
+            <?php 
+              // if(isset($_GET['page']) && $_GET['page'] > 1){
+              //   echo "<a href='index.php?page=".($page - 1)."'>Prev </a>";
+              // } 
+             
+              if($page > 1){
+                echo "<a href='index.php?page=".($page - 1)."'> Prev</a>";
+              }
+              
+           
+                // for($page; $page <= $number_of_pages; $page++){
+                  // if(isset($_GET['page']) && $_GET['page'] == $page){
+                    echo "<span class='bg-secondary rounded text-light py-1 px-3 mx-2'> ".$page." </span>";
+                  // }
+                  // else{
+                  //   echo "<a href='index.php?page=".$page."' class='bg-primary rounded text-light py-1 px-2 mx-2'> ".$page." </a>";
+                  // }
+                 
+                // }
+           
+              // if(isset($_GET['page']) && $_GET['page'] != $number_of_pages){
+              //   echo "<a href='index.php?page=".($page + 1)."'> Next</a>";
+              // } 
+              if($page < $number_of_pages){
+                echo "<a href='index.php?page=".($page + 1)."'> Next</a>";
+              }
+            ?>
+          </div>
+        </div>
          
       </div>
 

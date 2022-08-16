@@ -1,4 +1,8 @@
-<?php include_once 'admin/header.php' ?>
+<?php 
+include_once 'blog-config.php';
+include_once 'admin/header.php' ?>
+
+
 <?php 
 
 
@@ -39,7 +43,7 @@ $categories = getCategory();
 
 
 <title>Create Post</title>
-<?php include_once 'admin/navbar.php' ?>
+<?php include_once 'admin/navbar.php';  ?>
 
                   <div class="container">
                     <div class="row">
@@ -91,10 +95,11 @@ $categories = getCategory();
                                     <div class="col-md-6 my-3">
                                         <h6 class="text-secondary"><b>Author</b></h6>
                                         <select name="author_id" class="form-control">
-                                            <option value="">Choose...</option>
-                                                <?php foreach($users as $user) :?>
-                                                    <option value="<?php echo $user['id']?>"><?php echo $user['first_name']?></option>
-                                                <?php endforeach?>
+                                               
+                                                    <option value="<?php echo $_SESSION['id']?>">
+                                                    <?php echo $_SESSION['first_name']." ". $_SESSION['last_name']?>
+                                                </option>
+                                             
                                         </select>
                                        
                                     </div>
