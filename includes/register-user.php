@@ -148,8 +148,8 @@ if(isset($_POST['submit'])){
              $mail->SMTPAuth = "true";
              $mail->SMTPSecure = "tls";
              $mail->Port = "587";
-             $mail->Username = "oluchi.web@gmail.com";
-             $mail->Password = "xsmtpsib-4b851c7c225da14d3f6a257eade2adbc8deb42d61bab6091ee98f70e86f5d1a7-26NPVbLKwQsZq0Rk";
+             $mail->Username = "Your username";
+             $mail->Password = "Your password";
      
 
           $mail->isHTML(true);

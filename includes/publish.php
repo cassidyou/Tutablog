@@ -91,7 +91,7 @@ require_once '../vendor/autoload.php';
             
         ];
 
-        $pageAccessToken = 'EAAL6dBRZCqBgBAP6CYfV70aPbUWXweAD1MasXgZAJVLsKLPsx4GqSegpYws4lXUazRz6fgA3XSAHvPDZC3dP8aPZCJzSFYDhLLzSHMthNBZAJkUSYOgAA9c7NaVe1UQb2zDafePIqNyEQ6j73yyXL5ZApDMqBRy90098eHjvR2EStX5wAHajwv';
+        // $pageAccessToken = your access token;
     try{
         $reponse = $fb->post('me/feed', $message, $pageAccessToken);
     }catch( Facebook\Exceptions\FacebookResponseException $e){
@@ -117,8 +117,8 @@ require_once '../vendor/autoload.php';
             $mail->SMTPAuth = "true";
             $mail->SMTPSecure = "tls";
             $mail->Port = "587";
-            $mail->Username = "oluchi.web@gmail.com";
-            $mail->Password = "QXG1rF58LZqjs7pB";
+            $mail->Username = "Your username";
+            $mail->Password = "Your password";
     
             $mail->isHTML(true);
             $mail->Subject = "Top Post on TutaBlog: $title";
